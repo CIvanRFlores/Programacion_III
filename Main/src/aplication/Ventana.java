@@ -23,8 +23,11 @@ public class Ventana extends JFrame
 		
 		JLabel etiqueta1 = new JLabel("Bienvenido");
 		
-		etiqueta1.setSize(100, 100);
+		etiqueta1.setSize(70, 50);
 		etiqueta1.setLocation(490, 5);
+		
+		//Es nesesario volver opaco el fondo del boton, viene invisible por defecto
+		etiqueta1.setOpaque(true);
 		etiqueta1.setBackground(Color.BLUE);
 		
 		this.add(etiqueta1);
