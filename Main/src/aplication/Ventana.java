@@ -12,6 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
@@ -37,7 +39,8 @@ public class Ventana extends JFrame
 		this.setLocationRelativeTo(null);	//Sobre que elemento colocare mi item
 		
 //		this.add(login());	//Llamamos al metodo para invocar el panel.
-		this.add(registro());
+//		this.add(registro());
+		this.add(usuarios());
 		
 		this.repaint();
 	}
@@ -289,5 +292,78 @@ public class Ventana extends JFrame
 		registro.add(soporteTecnico);
 				
 		return fondoRegistro;
+	}
+	
+	public JPanel usuarios()
+	{
+		JPanel fondoUsuarios = new JPanel();	//Fondo del login
+		fondoUsuarios.setBounds(0, 0, 1024, 720);
+		fondoUsuarios.setOpaque(true);
+		fondoUsuarios.setBackground(new Color(31, 95, 97));
+		fondoUsuarios.setLayout(null);
+		
+		JLabel titulo = new JLabel("Usuarios");
+		titulo.setBounds(374, 20, 470, 50);
+		titulo.setForeground(Color.WHITE);
+		titulo.setFont(new Font("Roman Baseline", Font.ROMAN_BASELINE, 60));	//Podemos establecr directamente un font a la etiqueta
+		fondoUsuarios.add(titulo);
+		
+		JLabel cantUsuarios = new JLabel("Cantidad de usuarios: 100");
+		cantUsuarios.setBounds(20, 160, 390, 45);
+		cantUsuarios.setForeground(Color.WHITE);
+		cantUsuarios.setFont(new Font("Arial", Font.BOLD, 30));
+		fondoUsuarios.add(cantUsuarios);
+		
+		JPanel panelTabla = new JPanel();
+		panelTabla.setVisible(true);
+		panelTabla.setBounds(30, 220, 954, 440);
+		panelTabla.setOpaque(true);
+		
+		
+		String[] columnNames = {"ID", "Nombre", "Correo electronico", "Edad", "Estado"};
+		String[][] data = {
+				{"001", "Mary", "Mary1@gmail.com", "19", "Activo"},
+				{"002", "Lhucas", "Lhucas2@gmail.com", "22", "Activo"},
+				{"003", "Kathya", "Kathya3@gmail.com", "24", "Activo"},
+				{"004", "Marcus", "Marcus4@gmail.com", "18", "Activo"},
+				{"005", "Angela", "Angela5@gmail.com", "35", "Activo"},
+				{"001", "Mary", "Mary1@gmail.com", "19", "Activo"},
+				{"002", "Lhucas", "Lhucas2@gmail.com", "22", "Activo"},
+				{"003", "Kathya", "Kathya3@gmail.com", "24", "Activo"},
+				{"004", "Marcus", "Marcus4@gmail.com", "18", "Activo"},
+				{"005", "Angela", "Angela5@gmail.com", "35", "Activo"},
+				{"001", "Mary", "Mary1@gmail.com", "19", "Activo"},
+				{"002", "Lhucas", "Lhucas2@gmail.com", "22", "Activo"},
+				{"003", "Kathya", "Kathya3@gmail.com", "24", "Activo"},
+				{"004", "Marcus", "Marcus4@gmail.com", "18", "Activo"},
+				{"005", "Angela", "Angela5@gmail.com", "35", "Activo"},
+				{"001", "Mary", "Mary1@gmail.com", "19", "Activo"},
+				{"002", "Lhucas", "Lhucas2@gmail.com", "22", "Activo"},
+				{"003", "Kathya", "Kathya3@gmail.com", "24", "Activo"},
+				{"004", "Marcus", "Marcus4@gmail.com", "18", "Activo"},
+				{"005", "Angela", "Angela5@gmail.com", "35", "Activo"},
+				{"001", "Mary", "Mary1@gmail.com", "19", "Activo"},
+				{"002", "Lhucas", "Lhucas2@gmail.com", "22", "Activo"},
+				{"003", "Kathya", "Kathya3@gmail.com", "24", "Activo"},
+				{"004", "Marcus", "Marcus4@gmail.com", "18", "Activo"},
+				{"005", "Angela", "Angela5@gmail.com", "35", "Activo"},
+				{"001", "Mary", "Mary1@gmail.com", "19", "Activo"},
+				{"002", "Lhucas", "Lhucas2@gmail.com", "22", "Activo"},
+				{"003", "Kathya", "Kathya3@gmail.com", "24", "Activo"},
+				{"004", "Marcus", "Marcus4@gmail.com", "18", "Activo"},
+				{"005", "Angela", "Angela5@gmail.com", "35", "Activo"}};
+		
+		JTable tablaDatos = new JTable(data, columnNames);
+		tablaDatos.setVisible(true);
+		tablaDatos.setBounds(0, 0, 954, 440);
+		tablaDatos.setForeground(Color.BLACK);
+		tablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		JScrollPane sp = new JScrollPane(tablaDatos);
+		sp.setBounds(30, 220, 954, 440);
+		
+		panelTabla.add(tablaDatos);
+		fondoUsuarios.add(panelTabla);
+		
+		return fondoUsuarios;
 	}
 }
