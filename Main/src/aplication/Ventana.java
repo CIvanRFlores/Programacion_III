@@ -8,9 +8,13 @@ import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
@@ -28,7 +32,7 @@ public class Ventana extends JFrame
 	Color verdeAzulado = new Color(54, 84, 79);	//COLOR PERSONALIZADO
 	Color grisClaro = new Color(204, 204, 204);	//COLOR PERSONALIZADO
 	LineBorder bordeado = new LineBorder(Color.BLACK, 3);	//SE CREA UN TIPO DE BORDEADO
-	Border redondo = BorderFactory.createLineBorder(Color.WHITE, 2, true);	//TIPO DE BORDEADO PARA REDONDEAR
+	Border redondo = BorderFactory.createLineBorder(Color.WHITE, 4, true);	//TIPO DE BORDEADO PARA REDONDEAR
 	ImageIcon etiquetas = new ImageIcon("etiquetas.jpg");	//iMAGEN DE FONDO PARA CAMPOS
 	
 	public Ventana (String tittle)
@@ -36,17 +40,83 @@ public class Ventana extends JFrame
 		
 		this.setTitle(tittle);
 		this.setVisible(true);
-		this.setSize(1024, 720);
+		this.setSize(1024, 740);
 		this.setResizable(false);
 		this.setLayout(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	//QUE PASA CUANDO CIERRO MI APLICACION
 		this.setLocationRelativeTo(null);	//SOBRE QUE ELEMENTOS COLOCARE MI ITEM
 		
 		this.add(login());	//LLAMAMOS AL METODO APRA INVOCAR EL PANEL
-//		this.add(registros());
+//		this.add(registro());
 //		this.add(usuarios());
 		
 		this.repaint();
+		this.revalidate();
+		
+		//BARRA DEL MENU
+		JMenuBar barra = new JMenuBar();	//BARRA DEL MENU
+		
+		//OPCIONES DEL MENU
+		JMenu menu1 = new JMenu("Opciones");	//OPCION DEL MENU
+		
+		//ITEMS DEL MENU
+		JMenuItem op_Abrir = new JMenuItem("Abrir cuenta");
+		JMenuItem op_Cerrar = new JMenuItem("Cerrar cuenta");
+		JMenu op_Config = new JMenu("Configuracion");	//SUBMENU DENTRO DE LA OPCION DEL MENU
+		JMenuItem op_Salir = new JMenuItem("Salir");
+		
+		//SE AÑADEN LOS ITEMS AL MENU
+		menu1.add(op_Abrir);
+		menu1.add(op_Cerrar);
+		menu1.add(op_Config);
+		menu1.add(op_Salir);
+		
+		//ITEMS DESPLEGABLES DEL MENU1
+		JMenuItem op_Sistema = new JMenuItem("Sistema");
+		JMenuItem op_Ventana = new JMenuItem("Ventana");
+		
+		//SE AÑADEN LOS ITEMS AL MENU
+		op_Config.add(op_Sistema);
+		op_Config.add(op_Ventana);
+		
+		//OPCIONES DEL MENU
+		JMenu menu2 = new JMenu("Inspeccionar");
+		
+		//ITEMS DEL MENU
+		JMenuItem op_Cuenta = new JMenuItem("Cuenta");
+		JMenuItem op_Elemen = new JMenuItem("Elementos");
+		JMenuItem op_Usuarios = new JMenuItem("Usuarios");
+		JMenuItem op_Servicios = new JMenuItem("Servicios");
+		JMenuItem op_ModoOsc = new JCheckBoxMenuItem("Modo oscuro");	//nota:tratar de cambiar checkBox por un grupo radioButton
+		
+		//SE AÑADEN LOS ITEMS AL MENU
+		menu2.add(op_Cuenta);
+		menu2.add(op_Elemen);
+		menu2.add(op_Usuarios);
+		menu2.add(op_Servicios);
+		menu2.add(op_ModoOsc);
+		
+		//OPCIONES DEL MENU
+		JMenu menu3 = new JMenu("Ayuda");
+		
+		//ITEMS DEL MENU
+		JMenuItem op_VisitarPag = new JMenuItem("Visitar pagina");
+		JMenuItem op_ModoInsp = new JCheckBoxMenuItem("Modo inspector");	//ITEM DE TIPO CHECK BOX
+
+		//SE AÑADEN LOS ITEMS AL MENU
+		menu3.add(op_VisitarPag);
+		menu3.add(op_ModoInsp);
+		
+		//SE AÑADEN LAS OPCIONES A LA BARRA
+		barra.add(menu1);
+		barra.add(menu2);
+		barra.add(menu3);
+		
+		//SE INVOCA LA BARRA EN LA VENTANA
+		this.setJMenuBar(barra);
+		
+		this.repaint();
+		this.revalidate();
 	}
 	
 	public JPanel login()	//METODO QUE CREA EL PANEL DE LOGEO
@@ -247,7 +317,7 @@ public class Ventana extends JFrame
 	
 	public JPanel registro()
 	{
-		//Paneles
+		//PANELES
 		JPanel fondoRegistro = new JPanel();
 		fondoRegistro.setBounds(0, 0, 1024, 720);
 		fondoRegistro.setOpaque(true);
@@ -261,7 +331,7 @@ public class Ventana extends JFrame
 		registro.setLayout(null);
 		fondoRegistro.add(registro);
 		
-		//Etiquetas de texto
+		//ETIQUETAS DE TEXTO
 		JLabel Registrarse = new JLabel("REGISTRO");
 		Registrarse.setBounds(179, 0, 312, 100);
 		Registrarse.setForeground(Color.WHITE);
@@ -298,13 +368,13 @@ public class Ventana extends JFrame
 		contactaSoporte.setFont(new Font("Italic", Font.ITALIC, 19));
 		registro.add(contactaSoporte);
 		
-		//Cajas de texto para capturar informacion
+		//CAJAS DE TXETO PARA CAPTURAR INFORMACION
 		JTextField usuario = new JTextField();
 		usuario.setBounds(20, 140, 480, 48);
 		usuario.setForeground(Color.BLACK);
 		usuario.setOpaque(true);
 		usuario.setBackground(grisClaro);
-		usuario.setBorder(bordeado);	//Se utiliza el tipo de bordeado creado
+		usuario.setBorder(bordeado);	//SSE UTILIZA EL TIPO DE BORDEADO CREADO
 		usuario.setFont(txtBox);
 		registro.add(usuario);
 		
@@ -313,7 +383,7 @@ public class Ventana extends JFrame
 		contraseña.setForeground(Color.BLACK);
 		contraseña.setOpaque(true);
 		contraseña.setBackground(grisClaro);
-		contraseña.setBorder(bordeado);	//Se utiliza el tipo de bordeado creado
+		contraseña.setBorder(bordeado);	//SE UTILIZA EL TIPO DE BORDEADO CREADO
 		contraseña.setFont(txtBox);
 		registro.add(contraseña);
 		
@@ -322,11 +392,11 @@ public class Ventana extends JFrame
 		bio.setForeground(Color.BLACK);
 		bio.setOpaque(true);
 		bio.setBackground(grisClaro);
-		bio.setBorder(bordeado);	//Se utiliza el tipo de bordeado creado
+		bio.setBorder(bordeado);	//SE UTILIZA EL TIPO DE BORDEADO CREADO
 		bio.setFont(new Font("Plain", Font.PLAIN, 20));
 		registro.add(bio);
 		
-		//Cajas de confirmacion
+		//CAJAS DE CONFIRMACION
 		JCheckBox notif1 = new JCheckBox("Recibir notificaciones de estado");
 		notif1.setBounds(20, 475, 320, 45);
 		notif1.setOpaque(false);
@@ -341,41 +411,41 @@ public class Ventana extends JFrame
 		notif2.setFont(new Font("Italic", Font.ITALIC, 20));
 		registro.add(notif2);
 		
-		JRadioButton aceptar = new JRadioButton("Acepto los terminos y condiciones");	//Primer Radio Button
+		JRadioButton aceptar = new JRadioButton("Acepto los terminos y condiciones");	//PRIMER RADIO BUTTON
 		aceptar.setBounds(20, 555, 320, 45);
 		aceptar.setOpaque(false);
 		aceptar.setForeground(Color.WHITE);
 		aceptar.setFont(new Font("Italic", Font.ITALIC, 17));
 		registro.add(aceptar);
 		
-		JRadioButton rechazar = new JRadioButton("Rechazo los terminos y condiciones");	//Segundo Radio Button
+		JRadioButton rechazar = new JRadioButton("Rechazo los terminos y condiciones");	//SEGUNDO RADIO BUTOTN
 		rechazar.setBounds(20, 585, 320, 45);
 		rechazar.setOpaque(false);
 		rechazar.setForeground(Color.WHITE);
 		rechazar.setFont(new Font("Italic", Font.ITALIC, 17));
 		registro.add(rechazar);
 		
-		ButtonGroup termYCond = new ButtonGroup();	//Se crea un grupo de Radio Buttons
-		termYCond.add(aceptar);	//Se agrega el primer Radio Button
-		termYCond.add(rechazar);	//Se agrega el segundo Radio Button
+		ButtonGroup termYCond = new ButtonGroup();	//SE CREA UN GRUPO DE BOTONES
+		termYCond.add(aceptar);	//SE AGREGA EL PRIMER RADIO BUTTON
+		termYCond.add(rechazar);	//SE AGREGA EL SEGUDNO RADIO BUTTON
 		
 		
-		//Caja desplegable
-		JComboBox <String> ubi = new JComboBox<String>();	//El combo box se establece de tipo String
+		//CAJA DESPEGABLE
+		JComboBox <String> ubi = new JComboBox<String>();	//EL COMBO BOX SE ESTABLECE DE TIPO STRING
 		ubi.setBounds(400, 490, 250, 45);
 		ubi.setForeground(Color.BLACK);
 		ubi.setFont(new Font("Plain", Font.PLAIN, 20));
 		ubi.setBackground(grisClaro);
-		ubi.setBorder(bordeado);	//Se utiliza el tipo de bordeado creado
-		ubi.addItem("Seleccione su ubicacion");	//Empieza siendo la primer opcion
-		ubi.addItem("Camino Real");	//Segunda opcion
-		ubi.addItem("Calafia");	//Tercera opcion
-		ubi.addItem("Peninsula Sur");	//Cuarta opcion
-		ubi.addItem("Valle del mezquite");	//Quinta opcion
-		ubi.setSelectedItem(1);	//Se selecciona en la caja la primer opcion por default
+		ubi.setBorder(bordeado);	//SE UTILIZA EL TIPO DE BORDEADO CREADO
+		ubi.addItem("Seleccione su ubicacion");	//EMPIEZA SIENDO LA PRIMER OPCION
+		ubi.addItem("Camino Real");	//SEGUNDA OPCION
+		ubi.addItem("Calafia");	//TERCERA OPCION
+		ubi.addItem("Peninsula Sur");	//CUARTA OPCION
+		ubi.addItem("Valle del mezquite");	//QUINTA OPCION
+		ubi.setSelectedItem(1);	//SE SELECCIONA EN LA CAJA LA PRIMER OPCION POR DEFAULT
 		registro.add(ubi);
 		
-		//Boton de confirmacion
+		//BOTON DE CONFIRMACION
 		JButton confirmar = new JButton("Registrarse");
 		confirmar.setBounds(420, 604, 240, 70);
 		confirmar.setForeground(Color.BLACK);
@@ -383,160 +453,7 @@ public class Ventana extends JFrame
 		confirmar.setOpaque(true);
 		confirmar.setBackground(grisClaro);
 		confirmar.setBorderPainted(true);
-		confirmar.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));	//Se establece un color y grosor de borde
-		registro.add(confirmar);
-		
-		JButton soporteTecnico = new JButton("Soporte Tecnico");
-		soporteTecnico.setBounds(262, 647 , 150, 30);
-		soporteTecnico.setForeground(Color.BLACK);
-		soporteTecnico.setFont(new Font("Italic", Font.ITALIC, 19));
-		soporteTecnico.setOpaque(false);
-		soporteTecnico.setBackground(new Color(54, 84, 79));
-		soporteTecnico.setBorder(null);
-		registro.add(soporteTecnico);
-				
-		return fondoRegistro;
-	}
-	
-	public JPanel registros()
-	{
-		//Paneles
-		JPanel fondoRegistro = new JPanel();
-		fondoRegistro.setBounds(0, 0, 1024, 720);
-		fondoRegistro.setOpaque(true);
-		fondoRegistro.setBackground(new Color(41, 44, 55));
-		fondoRegistro.setLayout(null);
-		
-		JPanel registro = new JPanel();
-		registro.setBounds(177, 0, 670, 720);
-		registro.setOpaque(true);
-		registro.setBackground(new Color(177, 22, 35));
-		registro.setLayout(null);
-		fondoRegistro.add(registro);
-		
-		//Etiquetas de texto
-		JLabel Registrarse = new JLabel("REGISTRO");
-		Registrarse.setBounds(179, 0, 312, 100);
-		Registrarse.setForeground(Color.WHITE);
-		Registrarse.setFont(new Font("Roman Baseline", Font.ROMAN_BASELINE, 60));
-		registro.add(Registrarse);
-		
-		JLabel ingresaUsuario = new JLabel("Nombre de usuario*");
-		ingresaUsuario.setBounds(20, 95, 260, 45);
-		ingresaUsuario.setForeground(Color.WHITE);
-		ingresaUsuario.setFont(label);
-		registro.add(ingresaUsuario);
-		
-		JLabel ingresaContraseña = new JLabel("Contraseña*");
-		ingresaContraseña.setBounds(20, 200, 240, 45);
-		ingresaContraseña.setForeground(Color.WHITE);
-		ingresaContraseña.setFont(label);
-		registro.add(ingresaContraseña);
-		
-		JLabel biografia = new JLabel("Biografia*");
-		biografia.setBounds(284, 305, 99, 45);
-		biografia.setForeground(Color.WHITE);
-		biografia.setFont(label);
-		registro.add(biografia);
-		
-		JLabel pref = new JLabel("Peferencias*");
-		pref.setBounds(20, 445, 140, 45);
-		pref.setForeground(Color.WHITE);
-		pref.setFont(label);
-		registro.add(pref);
-		
-		JLabel contactaSoporte = new JLabel("¿Nesesitas ayuda? contacta");
-		contactaSoporte.setBounds(20, 640 , 250, 45);
-		contactaSoporte.setForeground(Color.WHITE);
-		contactaSoporte.setFont(new Font("Italic", Font.ITALIC, 19));
-		registro.add(contactaSoporte);
-		
-		//Cajas de texto para capturar informacion
-		JTextField usuario = new JTextField();
-		usuario.setBounds(20, 140, 480, 48);
-		usuario.setForeground(Color.BLACK);
-		usuario.setOpaque(true);
-		usuario.setBackground(grisClaro);
-		usuario.setBorder(bordeado);	//Se utiliza el tipo de bordeado creado
-		usuario.setFont(txtBox);
-		registro.add(usuario);
-		
-		JPasswordField contraseña = new JPasswordField();
-		contraseña.setBounds(20, 245, 480, 48);
-		contraseña.setForeground(Color.BLACK);
-		contraseña.setOpaque(true);
-		contraseña.setBackground(grisClaro);
-		contraseña.setBorder(bordeado);	//Se utiliza el tipo de bordeado creado
-		contraseña.setFont(txtBox);
-		registro.add(contraseña);
-		
-		JTextArea bio = new JTextArea();
-		bio.setBounds(20, 355, 630, 87);
-		bio.setForeground(Color.BLACK);
-		bio.setOpaque(true);
-		bio.setBackground(grisClaro);
-		bio.setBorder(bordeado);	//Se utiliza el tipo de bordeado creado
-		bio.setFont(new Font("Plain", Font.PLAIN, 20));
-		registro.add(bio);
-		
-		//Cajas de confirmacion
-		JCheckBox notif1 = new JCheckBox("Recibir notificaciones de estado");
-		notif1.setBounds(20, 475, 320, 45);
-		notif1.setOpaque(false);
-		notif1.setForeground(Color.WHITE);
-		notif1.setFont(new Font("Italic", Font.ITALIC, 20));
-		registro.add(notif1);
-		
-		JCheckBox notif2 = new JCheckBox("Recibir notificaciones de alertas");
-		notif2.setBounds(20, 505, 320, 45);
-		notif2.setOpaque(false);
-		notif2.setForeground(Color.WHITE);
-		notif2.setFont(new Font("Italic", Font.ITALIC, 20));
-		registro.add(notif2);
-		
-		JRadioButton aceptar = new JRadioButton("Acepto los terminos y condiciones");	//Primer Radio Button
-		aceptar.setBounds(20, 555, 320, 45);
-		aceptar.setOpaque(false);
-		aceptar.setForeground(Color.WHITE);
-		aceptar.setFont(new Font("Italic", Font.ITALIC, 17));
-		registro.add(aceptar);
-		
-		JRadioButton rechazar = new JRadioButton("Rechazo los terminos y condiciones");	//Segundo Radio Button
-		rechazar.setBounds(20, 585, 320, 45);
-		rechazar.setOpaque(false);
-		rechazar.setForeground(Color.WHITE);
-		rechazar.setFont(new Font("Italic", Font.ITALIC, 17));
-		registro.add(rechazar);
-		
-		ButtonGroup termYCond = new ButtonGroup();	//Se crea un grupo de Radio Buttons
-		termYCond.add(aceptar);	//Se agrega el primer Radio Button
-		termYCond.add(rechazar);	//Se agrega el segundo Radio Button
-		
-		
-		//Caja desplegable
-		JComboBox <String> ubi = new JComboBox<String>();	//El combo box se establece de tipo String
-		ubi.setBounds(400, 490, 250, 45);
-		ubi.setForeground(Color.BLACK);
-		ubi.setFont(new Font("Plain", Font.PLAIN, 20));
-		ubi.setBackground(grisClaro);
-		ubi.setBorder(bordeado);	//Se utiliza el tipo de bordeado creado
-		ubi.addItem("Seleccione su ubicacion");	//Empieza siendo la primer opcion
-		ubi.addItem("Camino Real");	//Segunda opcion
-		ubi.addItem("Calafia");	//Tercera opcion
-		ubi.addItem("Peninsula Sur");	//Cuarta opcion
-		ubi.addItem("Valle del mezquite");	//Quinta opcion
-		ubi.setSelectedItem(1);	//Se selecciona en la caja la primer opcion por default
-		registro.add(ubi);
-		
-		//Boton de confirmacion
-		JButton confirmar = new JButton("Registrarse");
-		confirmar.setBounds(420, 604, 240, 70);
-		confirmar.setForeground(Color.BLACK);
-		confirmar.setFont(new Font("Italic", Font.ITALIC, 40));
-		confirmar.setOpaque(true);
-		confirmar.setBackground(grisClaro);
-		confirmar.setBorderPainted(true);
-		confirmar.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));	//Se establece un color y grosor de borde
+		confirmar.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));	//SE ESTABLECE UN COLOR Y GROSOR DE BORDE
 		registro.add(confirmar);
 		
 		JButton soporteTecnico = new JButton("Soporte Tecnico");
@@ -553,7 +470,7 @@ public class Ventana extends JFrame
 	
 	public JPanel usuarios()
 	{
-		JPanel fondoUsuarios = new JPanel();	//Fondo del login
+		JPanel fondoUsuarios = new JPanel();	//FONDO DEL LOGIN
 		fondoUsuarios.setBounds(0, 0, 1024, 720);
 		fondoUsuarios.setOpaque(true);
 		fondoUsuarios.setBackground(new Color(31, 95, 97));
@@ -562,7 +479,7 @@ public class Ventana extends JFrame
 		JLabel titulo = new JLabel("Usuarios");
 		titulo.setBounds(374, 20, 470, 50);
 		titulo.setForeground(Color.WHITE);
-		titulo.setFont(new Font("Roman Baseline", Font.ROMAN_BASELINE, 60));	//Podemos establecr directamente un font a la etiqueta
+		titulo.setFont(new Font("Roman Baseline", Font.ROMAN_BASELINE, 60));	//PODEMOS ESTABLECER DIRECTAMENTE UN FONT A LA ETIQUETA
 		fondoUsuarios.add(titulo);
 		
 		JLabel cantUsuarios = new JLabel("Cantidad de usuarios: 100");
@@ -578,8 +495,8 @@ public class Ventana extends JFrame
 		siguiente.setFont(new Font("Arial", Font.BOLD, 30));
 		fondoUsuarios.add(siguiente);
 		
-		String[] columnNames = {"ID", "Nombre", "Correo electronico", "Edad", "Estado"};	//Son las columnas de la tabla
-		String[][] data = {	//Son los renglones de la tabla
+		String[] columnNames = {"ID", "Nombre", "Correo electronico", "Edad", "Estado"};	//SON LAS COLUMNAS DE LA TABLA
+		String[][] data = {	//SON LOS RENGLONES DE LA TABLA
 				{"001", "Mary", "Mary1@gmail.com", "19", "Activo"},
 				{"002", "Lhucas", "Lhucas2@gmail.com", "22", "Activo"},
 				{"003", "Kathya", "Kathya3@gmail.com", "24", "Activo"},
@@ -611,15 +528,15 @@ public class Ventana extends JFrame
 				{"004", "Marcus", "Marcus4@gmail.com", "18", "Activo"},
 				{"005", "Angela", "Angela5@gmail.com", "35", "Activo"}};
 		
-		JTable tablaDatos = new JTable(data, columnNames);	//Se crea la tabla utilizando como referencias los datos de columnas y renglones anteriores
-		JScrollPane sp = new JScrollPane(tablaDatos);	//Al crear y enlazar el scroll con la tabla sus propiedades ahora se manejan con el ScrollPane
+		JTable tablaDatos = new JTable(data, columnNames);	//SE CREA LA TABLA USANDO COMO REFERENCIA LAS COLUMNAS Y RENGLONES VISTOS ANTERIORMENTE
+		JScrollPane sp = new JScrollPane(tablaDatos);	//Al crear y enlazar el scroll con la tabla sus propiedades ahora se manejan con el ScrollPaneA
 		tablaDatos.setVisible(true);
 		tablaDatos.setForeground(Color.BLACK);
 		tablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		add(sp);	//Se debe añadir el scrollpane 
-		sp.setBounds(30, 220, 954, 440);	//Lo que se trata de ubicacion y tamaño de la tabla lo maneja directamente el scrollpane
+		add(sp);	//SE DEBE AÑADIR EL SCROLLPANE
+		sp.setBounds(30, 220, 954, 440);	//LO QUE SE TRATE DE UBICACIONY TAMAÑO DE LA TABLA LO MANEJA DIRECTAMENTE SCROLLPANE
 
-		fondoUsuarios.add(sp);	//Se debe agreagr el Scrollpane a la ventana, en este caso al fondo donde estan el resto de elementos
+		fondoUsuarios.add(sp);	//SE DEBE AGREAGR EL SCROLLPANE A LA VENTANA, EN ESTE CASO AL FONDO DONDE ESTAN EL RESTO DE ELEMENTOS
 		
 		return fondoUsuarios;
 	}
