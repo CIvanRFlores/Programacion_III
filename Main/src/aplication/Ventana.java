@@ -1,9 +1,11 @@
 package aplication;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -16,16 +18,18 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 public class Ventana extends JFrame 
 {	
-	Font label = new Font("Italic", Font.ITALIC, 22);
-	Font txtBox = new Font("Plain", Font.PLAIN, 30);
-	Color grisOscuro = new Color(48, 38, 28);
-	Color verdeAzulado = new Color(54, 84, 79);
-	Color grisClaro = new Color(204, 204, 204);
-	LineBorder bordeado = new LineBorder(Color.BLACK, 3);	//Se crea un tipo de bordeado
+	Font label = new Font("Italic", Font.ITALIC, 22);	//FUENTE DE LETRA PERSONALIZADO
+	Font txtBox = new Font("Plain", Font.PLAIN, 30);	//FUENTE DE LETRA PERSONALIZADO
+	Color verdeAzulado = new Color(54, 84, 79);	//COLOR PERSONALIZADO
+	Color grisClaro = new Color(204, 204, 204);	//COLOR PERSONALIZADO
+	LineBorder bordeado = new LineBorder(Color.BLACK, 3);	//SE CREA UN TIPO DE BORDEADO
+	Border redondo = BorderFactory.createLineBorder(Color.WHITE, 2, true);	//TIPO DE BORDEADO PARA REDONDEAR
+	ImageIcon etiquetas = new ImageIcon("etiquetas.jpg");	//iMAGEN DE FONDO PARA CAMPOS
 	
 	public Ventana (String tittle)
 	{
@@ -35,47 +39,46 @@ public class Ventana extends JFrame
 		this.setSize(1024, 720);
 		this.setResizable(false);
 		this.setLayout(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	//Que pasa cuando cierro mi aplicacion
-		this.setLocationRelativeTo(null);	//Sobre que elemento colocare mi item
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	//QUE PASA CUANDO CIERRO MI APLICACION
+		this.setLocationRelativeTo(null);	//SOBRE QUE ELEMENTOS COLOCARE MI ITEM
 		
-//		this.add(login());	//Llamamos al metodo para invocar el panel.
-//		this.add(registro());
-		this.add(usuarios());
+		this.add(login());	//LLAMAMOS AL METODO APRA INVOCAR EL PANEL
+//		this.add(registros());
+//		this.add(usuarios());
 		
 		this.repaint();
 	}
 	
-	public JPanel login()	//Metodo que crea el panel de logueo
+	public JPanel login()	//METODO QUE CREA EL PANEL DE LOGEO
 	{	
-		//Paneles
-		JPanel fondoLogin = new JPanel();	//Fondo del login
+		//PANELES
+		JPanel fondoLogin = new JPanel();	//FONDO DEL LOGIN
 		fondoLogin.setBounds(0, 0, 1024, 720);
 		fondoLogin.setOpaque(true);
-		fondoLogin.setBackground(grisOscuro);
 		fondoLogin.setLayout(null);
 		
-		JPanel login = new JPanel();	//Panel del login
-		login.setBounds(177, 0, 670, 720);	//Bounds es util para combinar la ubicacion y tamaño de una etiqueta (insertandolos en ese orden)
+		JPanel login = new JPanel();	//PANEL DEL LOGIN
+		login.setBounds(177, 0, 670, 720);	//BOUNDS ES UTIL PARA COMBINAR LA UBICACION Y TAMAÑO DE UNA ETIQUETA (INSERTANDOLOS EN ESE ORDEN)
 		login.setOpaque(true);
-		login.setBackground(new Color(31, 95, 97));	//Se puede personalizar el color con RGB o HEX
-		login.setLayout(null);	//Permite manejar de forma directa los componentes, en este caso su ubicacion
-		fondoLogin.add(login);	//Se añade el panel a la pantalla
+		login.setLayout(null);	//PERMITE MANEJAR DE FORMA DIRECTA LOS COMPONENTES, EN ESTE CASO SU UBICACION
+		fondoLogin.add(login);	//SE AÑADE EL PANEL A LA PANTALLA
 		
-		//Etiquetas de texto
+		//ETIQUETAS DE TEXTO
 		JLabel iniciaSesion = new JLabel("INICIAR SESIÓN");
 		iniciaSesion.setBounds(100, 23, 470, 100);
 		iniciaSesion.setForeground(Color.WHITE);
-		iniciaSesion.setFont(new Font("Roman Baseline", Font.ROMAN_BASELINE, 60));	//Podemos establecr directamente un font a la etiqueta
+		iniciaSesion.setFont(new Font("Roman Baseline", Font.ROMAN_BASELINE, 60));	//PODEMOS ESTABLECER UN FONT DIRECTAMENTE A LA ETIQUETA
 		login.add(iniciaSesion);
 		
 		JLabel ingresaUsuario = new JLabel("Nombre de usuario*");
-		ingresaUsuario.setBounds(20, 160, 260, 45);
+		ingresaUsuario.setBounds(20, 180, 260, 45);
+		ingresaUsuario.setIcon(new ImageIcon("etiqueta"));
 		ingresaUsuario.setForeground(Color.WHITE);
 		ingresaUsuario.setFont(label);
 		login.add(ingresaUsuario);
 		
 		JLabel ingresaContraseña = new JLabel("Contraseña*");
-		ingresaContraseña.setBounds(20, 320, 240, 45);
+		ingresaContraseña.setBounds(20, 340, 260, 45);
 		ingresaContraseña.setForeground(Color.WHITE);
 		ingresaContraseña.setFont(label);
 		login.add(ingresaContraseña);
@@ -86,57 +89,158 @@ public class Ventana extends JFrame
 		contactaSoporte.setFont(new Font("Italic", Font.ITALIC, 19));
 		login.add(contactaSoporte);
 		
-		//Cajas de texto para capturar informacion
+		//CAJAS DE TEXTO PARA CAPTURAR INFORMACION
+		
+		//ELEMENTOS PARA CAMPO DE USUARIO
 		JTextField usuario = new JTextField();
-		usuario.setBounds(20, 240, 480, 48);
+		usuario.setBounds(21, 240, 480, 48);
 		usuario.setForeground(Color.WHITE);
-		usuario.setOpaque(true);
-		usuario.setBackground(verdeAzulado);
-		usuario.setFont(txtBox);;
+		usuario.setBorder(null);
+		usuario.setOpaque(false);
+		usuario.setFont(txtBox);
 		login.add(usuario);
 		
+		JLabel fondoUsuario = new JLabel(etiquetas);
+		fondoUsuario.setBounds(20, 240, 480, 48);
+		fondoUsuario.setOpaque(true);
+		fondoUsuario.setBorder(redondo);
+		login.add(fondoUsuario);
+		
+		JLabel iconoUsuario = new JLabel(new ImageIcon("usuario.png"));
+		iconoUsuario.setBounds(511, 240, 48, 48);
+		iconoUsuario.setOpaque(false);
+		login.add(iconoUsuario);
+		
+		//ELEMENTOS PARA CAMPO DE CONTRASEÑA
 		JPasswordField contraseña = new JPasswordField();
 		contraseña.setBounds(20, 400, 480, 48);
 		contraseña.setForeground(Color.WHITE);
-		contraseña.setOpaque(true);
-		contraseña.setBackground(verdeAzulado);
-		contraseña.setFont(txtBox);;
+		contraseña.setBorder(null);
+		contraseña.setOpaque(false);
+		contraseña.setFont(txtBox);
 		login.add(contraseña);
 		
-		//Caja de confirmacion
+		JLabel fondoContraseña = new JLabel(etiquetas);
+		fondoContraseña.setBounds(20, 400, 480, 48);
+		fondoContraseña.setBorder(redondo);
+		login.add(fondoContraseña);
+		
+		JLabel iconoContra = new JLabel(new ImageIcon("contra.png"));
+		iconoContra.setBounds(511, 400, 58, 58);
+		iconoContra.setOpaque(false);
+		login.add(iconoContra);
+		
+		//CAJA DE CONFIRMACION
 		JCheckBox guardarContraseña = new JCheckBox("Recordar");
 		guardarContraseña.setBounds(20, 470, 240, 54);
 		guardarContraseña.setOpaque(false);
 		guardarContraseña.setForeground(Color.WHITE);
 		guardarContraseña.setFont(new Font("Italic", Font.ITALIC, 20));
+		guardarContraseña.addMouseListener(new java.awt.event.MouseAdapter() {	//METODO MOUSE LISTENER PARA CAMBIAR ICONO DEL MOUSE SOBRE UN BOTON
+            public void mouseEntered(java.awt.event.MouseEvent e) {
+            	guardarContraseña.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            	
+            }
+            public void mouseExited(java.awt.event.MouseEvent e) {
+            	guardarContraseña.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+            }
+		});
 		login.add(guardarContraseña);
 		
-		//Boton de confirmacion
+		//ELEMENTOS PARA BOTON DE CONFIRMACION
 		JButton confirmar = new JButton("Confirmar");
 		confirmar.setBounds(260, 490, 240, 70);
 		confirmar.setForeground(Color.WHITE);
-		confirmar.setFont(new Font("Italic", Font.ITALIC, 40));
-		confirmar.setOpaque(true);
+		confirmar.setBorder(null);
+		confirmar.setFont(new Font("Arial", Font.BOLD, 40));
+		confirmar.setOpaque(false);
 		confirmar.setBackground(verdeAzulado);
+		confirmar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent e) {
+            	confirmar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            	
+            }
+            public void mouseExited(java.awt.event.MouseEvent e) {
+            	confirmar.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+            }
+		});
 		login.add(confirmar);
 		
+		JLabel fondoConfirmar = new JLabel(etiquetas);
+		fondoConfirmar.setBounds(260, 490, 240, 70);
+		fondoConfirmar.setBorder(redondo);
+		login.add(fondoConfirmar);
+		
+		//ELEMENTOS PARA BOTON DE REGISTRO
+		JButton registro = new JButton("Registrarse");
+		registro.setBounds(520, 635, 145, 40);
+		registro.setForeground(Color.WHITE);
+		confirmar.setBorder(null);
+		registro.setFont(new Font("Arial", Font.BOLD, 20));
+		registro.setOpaque(false);
+		registro.setBackground(verdeAzulado);
+		registro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent e) {
+            	registro.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            	
+            }
+            public void mouseExited(java.awt.event.MouseEvent e) {
+            	registro.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+            }
+		});
+		login.add(registro);
+		
+		JLabel fondoRegistrar = new JLabel(etiquetas);
+		fondoRegistrar.setBounds(520, 635, 145, 40);
+		fondoRegistrar.setBorder(redondo);
+		login.add(fondoRegistrar);
+		
+		//ELEMENTOS PARA BOTON DE OLVIDO CONTRASEÑA
 		JButton olvidoContraseña = new JButton("¿Olvidaste tu contraseña?");
 		olvidoContraseña.setBounds(248, 570, 268, 30);
-		olvidoContraseña.setForeground(grisOscuro);
-		olvidoContraseña.setFont(new Font("Italic", Font.ROMAN_BASELINE, 20));
+		olvidoContraseña.setForeground(Color.CYAN);
+		olvidoContraseña.setFont(new Font("Arial", Font.BOLD, 20));
 		olvidoContraseña.setOpaque(false);
 		olvidoContraseña.setBackground(new Color(54, 84, 79));
 		olvidoContraseña.setBorder(null);
+		olvidoContraseña.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent e) {
+            	olvidoContraseña.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            	
+            }
+            public void mouseExited(java.awt.event.MouseEvent e) {
+            	olvidoContraseña.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+            }
+		});
 		login.add(olvidoContraseña);
 		
+		//ELEMENTOS PARA BOTON DE SOPORTE TECNICO
 		JButton soporteTecnico = new JButton("Soporte Tecnico");
-		soporteTecnico.setBounds(262, 647 , 150, 30);
-		soporteTecnico.setForeground(grisOscuro);
-		soporteTecnico.setFont(new Font("Italic", Font.ITALIC, 19));
+		soporteTecnico.setBounds(262, 647 , 160, 30);
+		soporteTecnico.setForeground(Color.CYAN);
+		soporteTecnico.setFont(new Font("Arial", Font.BOLD, 19));
 		soporteTecnico.setOpaque(false);
 		soporteTecnico.setBackground(new Color(54, 84, 79));
 		soporteTecnico.setBorder(null);
+		soporteTecnico.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent e) {
+            	soporteTecnico.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            	
+            }
+            public void mouseExited(java.awt.event.MouseEvent e) {
+            	soporteTecnico.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+            }
+		});
 		login.add(soporteTecnico);
+		
+		//IMAGENES DE FONDO
+		JLabel imgFondo = new JLabel(new ImageIcon("fondoLogin.jpg"));
+		imgFondo.setBounds(0, 0, 1024, 720);
+		fondoLogin.add(imgFondo);
+		
+		JLabel imgLogin = new JLabel(new ImageIcon("login.jpg"));
+		imgLogin.setBounds(0, 0, 670, 720);
+		login.add(imgLogin);
 				
 		return fondoLogin;
 	}
@@ -294,6 +398,159 @@ public class Ventana extends JFrame
 		return fondoRegistro;
 	}
 	
+	public JPanel registros()
+	{
+		//Paneles
+		JPanel fondoRegistro = new JPanel();
+		fondoRegistro.setBounds(0, 0, 1024, 720);
+		fondoRegistro.setOpaque(true);
+		fondoRegistro.setBackground(new Color(41, 44, 55));
+		fondoRegistro.setLayout(null);
+		
+		JPanel registro = new JPanel();
+		registro.setBounds(177, 0, 670, 720);
+		registro.setOpaque(true);
+		registro.setBackground(new Color(177, 22, 35));
+		registro.setLayout(null);
+		fondoRegistro.add(registro);
+		
+		//Etiquetas de texto
+		JLabel Registrarse = new JLabel("REGISTRO");
+		Registrarse.setBounds(179, 0, 312, 100);
+		Registrarse.setForeground(Color.WHITE);
+		Registrarse.setFont(new Font("Roman Baseline", Font.ROMAN_BASELINE, 60));
+		registro.add(Registrarse);
+		
+		JLabel ingresaUsuario = new JLabel("Nombre de usuario*");
+		ingresaUsuario.setBounds(20, 95, 260, 45);
+		ingresaUsuario.setForeground(Color.WHITE);
+		ingresaUsuario.setFont(label);
+		registro.add(ingresaUsuario);
+		
+		JLabel ingresaContraseña = new JLabel("Contraseña*");
+		ingresaContraseña.setBounds(20, 200, 240, 45);
+		ingresaContraseña.setForeground(Color.WHITE);
+		ingresaContraseña.setFont(label);
+		registro.add(ingresaContraseña);
+		
+		JLabel biografia = new JLabel("Biografia*");
+		biografia.setBounds(284, 305, 99, 45);
+		biografia.setForeground(Color.WHITE);
+		biografia.setFont(label);
+		registro.add(biografia);
+		
+		JLabel pref = new JLabel("Peferencias*");
+		pref.setBounds(20, 445, 140, 45);
+		pref.setForeground(Color.WHITE);
+		pref.setFont(label);
+		registro.add(pref);
+		
+		JLabel contactaSoporte = new JLabel("¿Nesesitas ayuda? contacta");
+		contactaSoporte.setBounds(20, 640 , 250, 45);
+		contactaSoporte.setForeground(Color.WHITE);
+		contactaSoporte.setFont(new Font("Italic", Font.ITALIC, 19));
+		registro.add(contactaSoporte);
+		
+		//Cajas de texto para capturar informacion
+		JTextField usuario = new JTextField();
+		usuario.setBounds(20, 140, 480, 48);
+		usuario.setForeground(Color.BLACK);
+		usuario.setOpaque(true);
+		usuario.setBackground(grisClaro);
+		usuario.setBorder(bordeado);	//Se utiliza el tipo de bordeado creado
+		usuario.setFont(txtBox);
+		registro.add(usuario);
+		
+		JPasswordField contraseña = new JPasswordField();
+		contraseña.setBounds(20, 245, 480, 48);
+		contraseña.setForeground(Color.BLACK);
+		contraseña.setOpaque(true);
+		contraseña.setBackground(grisClaro);
+		contraseña.setBorder(bordeado);	//Se utiliza el tipo de bordeado creado
+		contraseña.setFont(txtBox);
+		registro.add(contraseña);
+		
+		JTextArea bio = new JTextArea();
+		bio.setBounds(20, 355, 630, 87);
+		bio.setForeground(Color.BLACK);
+		bio.setOpaque(true);
+		bio.setBackground(grisClaro);
+		bio.setBorder(bordeado);	//Se utiliza el tipo de bordeado creado
+		bio.setFont(new Font("Plain", Font.PLAIN, 20));
+		registro.add(bio);
+		
+		//Cajas de confirmacion
+		JCheckBox notif1 = new JCheckBox("Recibir notificaciones de estado");
+		notif1.setBounds(20, 475, 320, 45);
+		notif1.setOpaque(false);
+		notif1.setForeground(Color.WHITE);
+		notif1.setFont(new Font("Italic", Font.ITALIC, 20));
+		registro.add(notif1);
+		
+		JCheckBox notif2 = new JCheckBox("Recibir notificaciones de alertas");
+		notif2.setBounds(20, 505, 320, 45);
+		notif2.setOpaque(false);
+		notif2.setForeground(Color.WHITE);
+		notif2.setFont(new Font("Italic", Font.ITALIC, 20));
+		registro.add(notif2);
+		
+		JRadioButton aceptar = new JRadioButton("Acepto los terminos y condiciones");	//Primer Radio Button
+		aceptar.setBounds(20, 555, 320, 45);
+		aceptar.setOpaque(false);
+		aceptar.setForeground(Color.WHITE);
+		aceptar.setFont(new Font("Italic", Font.ITALIC, 17));
+		registro.add(aceptar);
+		
+		JRadioButton rechazar = new JRadioButton("Rechazo los terminos y condiciones");	//Segundo Radio Button
+		rechazar.setBounds(20, 585, 320, 45);
+		rechazar.setOpaque(false);
+		rechazar.setForeground(Color.WHITE);
+		rechazar.setFont(new Font("Italic", Font.ITALIC, 17));
+		registro.add(rechazar);
+		
+		ButtonGroup termYCond = new ButtonGroup();	//Se crea un grupo de Radio Buttons
+		termYCond.add(aceptar);	//Se agrega el primer Radio Button
+		termYCond.add(rechazar);	//Se agrega el segundo Radio Button
+		
+		
+		//Caja desplegable
+		JComboBox <String> ubi = new JComboBox<String>();	//El combo box se establece de tipo String
+		ubi.setBounds(400, 490, 250, 45);
+		ubi.setForeground(Color.BLACK);
+		ubi.setFont(new Font("Plain", Font.PLAIN, 20));
+		ubi.setBackground(grisClaro);
+		ubi.setBorder(bordeado);	//Se utiliza el tipo de bordeado creado
+		ubi.addItem("Seleccione su ubicacion");	//Empieza siendo la primer opcion
+		ubi.addItem("Camino Real");	//Segunda opcion
+		ubi.addItem("Calafia");	//Tercera opcion
+		ubi.addItem("Peninsula Sur");	//Cuarta opcion
+		ubi.addItem("Valle del mezquite");	//Quinta opcion
+		ubi.setSelectedItem(1);	//Se selecciona en la caja la primer opcion por default
+		registro.add(ubi);
+		
+		//Boton de confirmacion
+		JButton confirmar = new JButton("Registrarse");
+		confirmar.setBounds(420, 604, 240, 70);
+		confirmar.setForeground(Color.BLACK);
+		confirmar.setFont(new Font("Italic", Font.ITALIC, 40));
+		confirmar.setOpaque(true);
+		confirmar.setBackground(grisClaro);
+		confirmar.setBorderPainted(true);
+		confirmar.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));	//Se establece un color y grosor de borde
+		registro.add(confirmar);
+		
+		JButton soporteTecnico = new JButton("Soporte Tecnico");
+		soporteTecnico.setBounds(262, 647 , 150, 30);
+		soporteTecnico.setForeground(Color.BLACK);
+		soporteTecnico.setFont(new Font("Italic", Font.ITALIC, 19));
+		soporteTecnico.setOpaque(false);
+		soporteTecnico.setBackground(new Color(54, 84, 79));
+		soporteTecnico.setBorder(null);
+		registro.add(soporteTecnico);
+				
+		return fondoRegistro;
+	}	
+	
 	public JPanel usuarios()
 	{
 		JPanel fondoUsuarios = new JPanel();	//Fondo del login
@@ -309,19 +566,20 @@ public class Ventana extends JFrame
 		fondoUsuarios.add(titulo);
 		
 		JLabel cantUsuarios = new JLabel("Cantidad de usuarios: 100");
-		cantUsuarios.setBounds(20, 160, 390, 45);
+		cantUsuarios.setBounds(35, 160, 390, 45);
 		cantUsuarios.setForeground(Color.WHITE);
 		cantUsuarios.setFont(new Font("Arial", Font.BOLD, 30));
 		fondoUsuarios.add(cantUsuarios);
 		
-		JPanel panelTabla = new JPanel();
-		panelTabla.setVisible(true);
-		panelTabla.setBounds(30, 220, 954, 440);
-		panelTabla.setOpaque(true);
+		JButton siguiente = new JButton("Siguiente");
+		siguiente.setBounds(780, 160, 200, 45);
+		siguiente.setVisible(true);
+		siguiente.setForeground(Color.BLACK);
+		siguiente.setFont(new Font("Arial", Font.BOLD, 30));
+		fondoUsuarios.add(siguiente);
 		
-		
-		String[] columnNames = {"ID", "Nombre", "Correo electronico", "Edad", "Estado"};
-		String[][] data = {
+		String[] columnNames = {"ID", "Nombre", "Correo electronico", "Edad", "Estado"};	//Son las columnas de la tabla
+		String[][] data = {	//Son los renglones de la tabla
 				{"001", "Mary", "Mary1@gmail.com", "19", "Activo"},
 				{"002", "Lhucas", "Lhucas2@gmail.com", "22", "Activo"},
 				{"003", "Kathya", "Kathya3@gmail.com", "24", "Activo"},
@@ -353,16 +611,15 @@ public class Ventana extends JFrame
 				{"004", "Marcus", "Marcus4@gmail.com", "18", "Activo"},
 				{"005", "Angela", "Angela5@gmail.com", "35", "Activo"}};
 		
-		JTable tablaDatos = new JTable(data, columnNames);
+		JTable tablaDatos = new JTable(data, columnNames);	//Se crea la tabla utilizando como referencias los datos de columnas y renglones anteriores
+		JScrollPane sp = new JScrollPane(tablaDatos);	//Al crear y enlazar el scroll con la tabla sus propiedades ahora se manejan con el ScrollPane
 		tablaDatos.setVisible(true);
-		tablaDatos.setBounds(0, 0, 954, 440);
 		tablaDatos.setForeground(Color.BLACK);
 		tablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		JScrollPane sp = new JScrollPane(tablaDatos);
-		sp.setBounds(30, 220, 954, 440);
-		
-		panelTabla.add(tablaDatos);
-		fondoUsuarios.add(panelTabla);
+		add(sp);	//Se debe añadir el scrollpane 
+		sp.setBounds(30, 220, 954, 440);	//Lo que se trata de ubicacion y tamaño de la tabla lo maneja directamente el scrollpane
+
+		fondoUsuarios.add(sp);	//Se debe agreagr el Scrollpane a la ventana, en este caso al fondo donde estan el resto de elementos
 		
 		return fondoUsuarios;
 	}
