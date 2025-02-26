@@ -1,5 +1,6 @@
 package aplication;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
@@ -18,6 +19,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
+import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
@@ -41,12 +43,12 @@ public class Ventana extends JFrame
 		this.setTitle(tittle);
 		this.setVisible(true);
 		this.setSize(1024, 740);
-		this.setResizable(false);
-		this.setLayout(null);
+		this.setResizable(true);
+		this.setLayout(new BorderLayout());
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	//QUE PASA CUANDO CIERRO MI APLICACION
 		this.setLocationRelativeTo(null);	//SOBRE QUE ELEMENTOS COLOCARE MI ITEM
 		
-		this.add(login());	//LLAMAMOS AL METODO APRA INVOCAR EL PANEL
+		this.add(login(), BorderLayout.CENTER);	//LLAMAMOS AL METODO APRA INVOCAR EL PANEL
 //		this.add(registro());
 //		this.add(usuarios());
 		
@@ -87,14 +89,26 @@ public class Ventana extends JFrame
 		JMenuItem op_Elemen = new JMenuItem("Elementos");
 		JMenuItem op_Usuarios = new JMenuItem("Usuarios");
 		JMenuItem op_Servicios = new JMenuItem("Servicios");
-		JMenuItem op_ModoOsc = new JCheckBoxMenuItem("Modo oscuro");	//nota:tratar de cambiar checkBox por un grupo radioButton
+		JMenu op_DiseñoVentana = new JMenu("Diseño de ventana");
+		JMenuItem op_ModoBlanc = new JRadioButtonMenuItem("Modo blanco");
+		JMenuItem op_ModoOsc = new JRadioButtonMenuItem("Modo oscuro");
+		
+		//GRUPO DE BOTONES
+		ButtonGroup modos = new ButtonGroup();
+		modos.add(op_ModoBlanc);
+		modos.add(op_ModoOsc);
+		op_ModoBlanc.setSelected(true);
+		
+		//AGREGA RADIO BUTTONS A LA OPCION
+		op_DiseñoVentana.add(op_ModoBlanc);
+		op_DiseñoVentana.add(op_ModoOsc);
 		
 		//SE AÑADEN LOS ITEMS AL MENU
 		menu2.add(op_Cuenta);
 		menu2.add(op_Elemen);
 		menu2.add(op_Usuarios);
 		menu2.add(op_Servicios);
-		menu2.add(op_ModoOsc);
+		menu2.add(op_DiseñoVentana);
 		
 		//OPCIONES DEL MENU
 		JMenu menu3 = new JMenu("Ayuda");
