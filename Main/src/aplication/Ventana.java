@@ -1,6 +1,5 @@
 package aplication;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
@@ -43,12 +42,12 @@ public class Ventana extends JFrame
 		this.setTitle(tittle);
 		this.setVisible(true);
 		this.setSize(1024, 740);
-		this.setResizable(true);
-		this.setLayout(new BorderLayout());
+		this.setResizable(false);
+		this.setLayout(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	//QUE PASA CUANDO CIERRO MI APLICACION
 		this.setLocationRelativeTo(null);	//SOBRE QUE ELEMENTOS COLOCARE MI ITEM
 		
-		this.add(login(), BorderLayout.CENTER);	//LLAMAMOS AL METODO APRA INVOCAR EL PANEL
+		this.add(login());	//LLAMAMOS AL METODO APRA INVOCAR EL PANEL
 //		this.add(registro());
 //		this.add(usuarios());
 		
@@ -128,6 +127,10 @@ public class Ventana extends JFrame
 		
 		//SE INVOCA LA BARRA EN LA VENTANA
 		this.setJMenuBar(barra);
+		
+		//AGREGAR UN ICONO A LA VENTANA
+		ImageIcon icono = new ImageIcon("iconoVentana.png");	//SE CREA UN NUEVO IMAGEICON CON LA DIRECICON DE LA IMAGEN A UTILIZAR
+		this.setIconImage(icono.getImage());	//SE ESTABLECE EL ICONO DE LA VENTANA CON EL IMAGEICON CREADO
 		
 		this.repaint();
 		this.revalidate();
