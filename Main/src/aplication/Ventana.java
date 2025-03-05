@@ -47,8 +47,8 @@ public class Ventana extends JFrame
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	//QUE PASA CUANDO CIERRO MI APLICACION
 		this.setLocationRelativeTo(null);	//SOBRE QUE ELEMENTOS COLOCARE MI ITEM
 		
-		this.add(login());	//LLAMAMOS AL METODO APRA INVOCAR EL PANEL
-//		this.add(registro());
+//		this.add(login());	//LLAMAMOS AL METODO APRA INVOCAR EL PANEL
+		this.add(registro());
 //		this.add(usuarios());
 		
 		this.repaint();
