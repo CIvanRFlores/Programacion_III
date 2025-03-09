@@ -69,7 +69,7 @@ public class SecondWindow extends JFrame {
 		
 		g2.setColor(Color.YELLOW);
 		
-		g2.setStroke(new BasicStroke(10));	//mODIFICA EL GROSOR DEL PINCEL
+		g2.setStroke(new BasicStroke(10));	//MODIFICA EL GROSOR DEL PINCEL
 		
 		g2.drawLine(10, 10, 710, 670);	//DIBUJA UNA LINEA DE UN PUNTO A OTRO
 		
@@ -94,7 +94,7 @@ public class SecondWindow extends JFrame {
 		BufferedImage image;
 		try {
 			image = ImageIO.read(new File("cat.png"));
-			g2.drawImage(image, 340, 470, 150, 150, null);
+			g2.drawImage(image, 200, 200, 400, 400, null);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
