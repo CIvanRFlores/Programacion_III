@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
@@ -262,24 +263,51 @@ public class Ventana extends JFrame
 
 				String cadenaContraseña = new String(contraseña.getPassword());
 				
-				if(usuario.getText().equals(""))
+				if(usuario.getText().equals(""))	//-----------------USUARIO VACIO
 				{
 					usuario.setBorder(new LineBorder(Color.RED, 4, true));
+					
+					if(cadenaContraseña.equals(""))	//-----------------CONTRASEÑA VACIA
+					{
+						contraseña.setBorder(new LineBorder(Color.RED, 4, true));
+					}
+					else	//-----------------------------------------CONTRASEÑA LLENA PERO INCORRECTA
+					{
+						contraseña.setBorder(new LineBorder(Color.GREEN, 4, true));
+					}
 				}
-				else
+				else	//---------------------------------------------USUARIO LLENO
 				{
-					usuario.setBorder(new LineBorder(Color.GREEN, 4, true));
+					if(usuario.getText().equals("Christian23"))	//-USUARIO LLENO Y CORRECTO
+					{
+						usuario.setBorder(new LineBorder(Color.GREEN, 4, true));
+						
+						if(cadenaContraseña.equals("delunoalseis"))	//-CONTRASEÑA LLENA Y CORRECTA
+						{
+							contraseña.setBorder(new LineBorder(Color.GREEN, 4, true));
+							JOptionPane.showMessageDialog(null, "Inicio de sesion exitoso");
+						}
+						else	//------------------------------------CONTRASEÑA LLENA PERO INCORRECTA
+						{
+							contraseña.setBorder(new LineBorder(Color.RED, 4, true));
+							JOptionPane.showMessageDialog(null, "Error: Datos incorrectos");
+						}
+					}
+					else	//----------------------------------------USUARIO LLENO PERO INCORRECTO
+					{
+						usuario.setBorder(new LineBorder(Color.GREEN, 4, true));
+
+						if(cadenaContraseña.equals(""))	//------------CONTRASEÑA VACIA
+						{
+							contraseña.setBorder(new LineBorder(Color.RED, 4, true));
+						}
+						else	//------------------------------------CONTRASEÑA LLENA PERO INCORRECTA
+						{
+							contraseña.setBorder(new LineBorder(Color.GREEN, 4, true));
+							JOptionPane.showMessageDialog(null, "Error: Datos incorrectos");
+						}
+					}
 				}
-				
-				if(cadenaContraseña.equals(""))
-				{
-					contraseña.setBorder(new LineBorder(Color.RED, 4, true));
-				}
-				else
-				{
-					contraseña.setBorder(new LineBorder(Color.GREEN, 4, true));
-				}
-				
 			}
 			
 		});
