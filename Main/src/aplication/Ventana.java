@@ -3,6 +3,9 @@ package aplication;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -47,8 +50,8 @@ public class Ventana extends JFrame
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	//QUE PASA CUANDO CIERRO MI APLICACION
 		this.setLocationRelativeTo(null);	//SOBRE QUE ELEMENTOS COLOCARE MI ITEM
 		
-//		this.add(login());	//LLAMAMOS AL METODO APRA INVOCAR EL PANEL
-		this.add(registro());
+		this.add(login());	//LLAMAMOS AL METODO APRA INVOCAR EL PANEL
+//		this.add(registro());
 //		this.add(usuarios());
 		
 		this.repaint();
@@ -182,7 +185,7 @@ public class Ventana extends JFrame
 		JTextField usuario = new JTextField();
 		usuario.setBounds(21, 240, 480, 48);
 		usuario.setForeground(Color.WHITE);
-		usuario.setBorder(null);
+		usuario.setBorder(redondo);
 		usuario.setOpaque(false);
 		usuario.setFont(txtBox);
 		login.add(usuario);
@@ -190,7 +193,7 @@ public class Ventana extends JFrame
 		JLabel fondoUsuario = new JLabel(etiquetas);
 		fondoUsuario.setBounds(20, 240, 480, 48);
 		fondoUsuario.setOpaque(true);
-		fondoUsuario.setBorder(redondo);
+		fondoUsuario.setBorder(null);
 		login.add(fondoUsuario);
 		
 		JLabel iconoUsuario = new JLabel(new ImageIcon("usuario.png"));
@@ -202,14 +205,14 @@ public class Ventana extends JFrame
 		JPasswordField contraseña = new JPasswordField();
 		contraseña.setBounds(20, 400, 480, 48);
 		contraseña.setForeground(Color.WHITE);
-		contraseña.setBorder(null);
+		contraseña.setBorder(redondo);
 		contraseña.setOpaque(false);
 		contraseña.setFont(txtBox);
 		login.add(contraseña);
 		
 		JLabel fondoContraseña = new JLabel(etiquetas);
 		fondoContraseña.setBounds(20, 400, 480, 48);
-		fondoContraseña.setBorder(redondo);
+		fondoContraseña.setBorder(null);
 		login.add(fondoContraseña);
 		
 		JLabel iconoContra = new JLabel(new ImageIcon("contra.png"));
@@ -251,6 +254,36 @@ public class Ventana extends JFrame
             	confirmar.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             }
 		});
+		
+		confirmar.addActionListener(new ActionListener() {	//METODO PARA AGREAGR UNA ACCION A UN ELEMENTO
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				String cadenaContraseña = new String(contraseña.getPassword());
+				
+				if(usuario.getText().equals(""))
+				{
+					usuario.setBorder(new LineBorder(Color.RED, 4, true));
+				}
+				else
+				{
+					usuario.setBorder(new LineBorder(Color.GREEN, 4, true));
+				}
+				
+				if(cadenaContraseña.equals(""))
+				{
+					contraseña.setBorder(new LineBorder(Color.RED, 4, true));
+				}
+				else
+				{
+					contraseña.setBorder(new LineBorder(Color.GREEN, 4, true));
+				}
+				
+			}
+			
+		});
+		
 		login.add(confirmar);
 		
 		JLabel fondoConfirmar = new JLabel(etiquetas);
@@ -471,6 +504,36 @@ public class Ventana extends JFrame
 		confirmar.setBackground(grisClaro);
 		confirmar.setBorderPainted(true);
 		confirmar.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));	//SE ESTABLECE UN COLOR Y GROSOR DE BORDE
+		
+		confirmar.addActionListener(new ActionListener() {	//METODO PARA AGREAGR UNA ACCION A UN ELEMENTO
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				String cadenaContraseña = new String(contraseña.getPassword());
+				
+				if(usuario.getText().equals(""))
+				{
+					usuario.setBorder(new LineBorder(Color.ORANGE, 4, true));
+				}
+				else
+				{
+					usuario.setBorder(new LineBorder(Color.GREEN, 4, true));
+				}
+				
+				if(cadenaContraseña.equals(""))
+				{
+					contraseña.setBorder(new LineBorder(Color.ORANGE, 4, true));
+				}
+				else
+				{
+					contraseña.setBorder(new LineBorder(Color.GREEN, 4, true));
+				}
+				
+			}
+			
+		});
+		
 		registro.add(confirmar);
 		
 		JButton soporteTecnico = new JButton("Soporte Tecnico");
