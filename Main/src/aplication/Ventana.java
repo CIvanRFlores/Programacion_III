@@ -5,6 +5,7 @@ import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowFocusListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -65,14 +66,34 @@ public class Ventana extends JFrame
 		JMenu menu1 = new JMenu("Opciones");	//OPCION DEL MENU
 		
 		//ITEMS DEL MENU
-		JMenuItem op_Abrir = new JMenuItem("Abrir cuenta");
-		JMenuItem op_Cerrar = new JMenuItem("Cerrar cuenta");
+		JMenuItem op_Login = new JMenuItem("Iniciar sesion");
+		
+		op_Login.addActionListener(new ActionListener() {	//ACCION PARA CAMBIAR ENTRE PANELES / VENTANAS
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				goTo("login");	
+			}
+		});
+		
+		JMenuItem op_Registro = new JMenuItem("Registrarse");
+		
+		op_Registro.addActionListener(new ActionListener() {	//ACCION PARA CAMBIAR ENTRE PANELES / VENTANAS
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				goTo("registro");	
+			}
+		});
+		
 		JMenu op_Config = new JMenu("Configuracion");	//SUBMENU DENTRO DE LA OPCION DEL MENU
 		JMenuItem op_Salir = new JMenuItem("Salir");
 		
 		//SE AÑADEN LOS ITEMS AL MENU
-		menu1.add(op_Abrir);
-		menu1.add(op_Cerrar);
+		menu1.add(op_Login);
+		menu1.add(op_Registro);
 		menu1.add(op_Config);
 		menu1.add(op_Salir);
 		
@@ -278,7 +299,7 @@ public class Ventana extends JFrame
 				}
 				else	//---------------------------------------------USUARIO LLENO
 				{
-					if(usuario.getText().equals("Christian23"))	//-USUARIO LLENO Y CORRECTO
+					if(usuario.getText().equals("Christian23"))	//-----USUARIO LLENO Y CORRECTO
 					{
 						usuario.setBorder(new LineBorder(Color.GREEN, 4, true));
 						
@@ -287,7 +308,7 @@ public class Ventana extends JFrame
 							contraseña.setBorder(new LineBorder(Color.GREEN, 4, true));
 							JOptionPane.showMessageDialog(null, "Inicio de sesion exitoso");
 						}
-						else	//------------------------------------CONTRASEÑA LLENA PERO INCORRECTA
+						else	//-------------------------------------CONTRASEÑA LLENA PERO INCORRECTA
 						{
 							contraseña.setBorder(new LineBorder(Color.RED, 4, true));
 							JOptionPane.showMessageDialog(null, "Error: Datos incorrectos");
@@ -336,6 +357,15 @@ public class Ventana extends JFrame
             	registro.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             }
 		});
+		
+		registro.addActionListener(new ActionListener() {	//ACCION PARA CAMBIAR ENTRE PANELES / VENTANAS
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				goTo("registro");	
+			}
+		});;
 		login.add(registro);
 		
 		JLabel fondoRegistrar = new JLabel(etiquetas);
@@ -440,8 +470,8 @@ public class Ventana extends JFrame
 		pref.setFont(label);
 		registro.add(pref);
 		
-		JLabel contactaSoporte = new JLabel("¿Nesesitas ayuda? contacta");
-		contactaSoporte.setBounds(20, 640 , 250, 45);
+		JLabel contactaSoporte = new JLabel("¿Ya tienes una cuenta?");
+		contactaSoporte.setBounds(20, 630 , 250, 45);
 		contactaSoporte.setForeground(Color.WHITE);
 		contactaSoporte.setFont(new Font("Italic", Font.ITALIC, 19));
 		registro.add(contactaSoporte);
@@ -564,13 +594,23 @@ public class Ventana extends JFrame
 		
 		registro.add(confirmar);
 		
-		JButton soporteTecnico = new JButton("Soporte Tecnico");
-		soporteTecnico.setBounds(262, 647 , 150, 30);
+		JButton soporteTecnico = new JButton("Inicia sesion");
+		soporteTecnico.setBounds(208, 638 , 150, 30);
 		soporteTecnico.setForeground(Color.BLACK);
 		soporteTecnico.setFont(new Font("Italic", Font.ITALIC, 19));
 		soporteTecnico.setOpaque(false);
 		soporteTecnico.setBackground(new Color(54, 84, 79));
 		soporteTecnico.setBorder(null);
+		
+		soporteTecnico.addActionListener(new ActionListener() {	//ACCION PARA CAMBIAR ENTRE PANELES / VENTANAS
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{	
+				goTo("login");
+			}
+		});
+		
 		registro.add(soporteTecnico);
 				
 		return fondoRegistro;
@@ -648,4 +688,21 @@ public class Ventana extends JFrame
 		
 		return fondoUsuarios;
 	}
+
+	public void goTo(String cambio)	//METODO PARA CAMBIO DE PANELES / VENTANAS
+	{
+		this.getContentPane().removeAll();
+
+		if(cambio.equals("registro"))
+		{
+			this.add(registro());			
+		}
+		else
+		{
+			this.add(login());
+		}
+		this.repaint();
+		this.revalidate();		
+	}
+	
 }
