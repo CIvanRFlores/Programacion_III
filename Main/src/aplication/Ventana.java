@@ -5,8 +5,6 @@ import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowFocusListener;
-
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -54,7 +52,7 @@ public class Ventana extends JFrame
 		
 		this.add(login());	//LLAMAMOS AL METODO APRA INVOCAR EL PANEL
 //		this.add(registro());
-//		this.add(usuarios());
+//		this.add(consultar());
 		
 		this.repaint();
 		this.revalidate();
@@ -63,7 +61,7 @@ public class Ventana extends JFrame
 		JMenuBar barra = new JMenuBar();	//BARRA DEL MENU
 		
 		//OPCIONES DEL MENU
-		JMenu menu1 = new JMenu("Opciones");	//OPCION DEL MENU
+		JMenu menu1 = new JMenu("Cuenta");	//OPCION DEL MENU
 		
 		//ITEMS DEL MENU
 		JMenuItem op_Login = new JMenuItem("Iniciar sesion");
@@ -88,62 +86,112 @@ public class Ventana extends JFrame
 			}
 		});
 		
-		JMenu op_Config = new JMenu("Configuracion");	//SUBMENU DENTRO DE LA OPCION DEL MENU
-		JMenuItem op_Salir = new JMenuItem("Salir");
+		JMenuItem op_RecupCuenta = new JMenuItem("Recuperar cuenta");
+		
+		op_RecupCuenta.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				goTo("recuperarCuenta");
+			}
+			
+		});
 		
 		//SE AÑADEN LOS ITEMS AL MENU
 		menu1.add(op_Login);
 		menu1.add(op_Registro);
-		menu1.add(op_Config);
-		menu1.add(op_Salir);
-		
-		//ITEMS DESPLEGABLES DEL MENU1
-		JMenuItem op_Sistema = new JMenuItem("Sistema");
-		JMenuItem op_Ventana = new JMenuItem("Ventana");
-		
-		//SE AÑADEN LOS ITEMS AL MENU
-		op_Config.add(op_Sistema);
-		op_Config.add(op_Ventana);
+		menu1.add(op_RecupCuenta);
 		
 		//OPCIONES DEL MENU
-		JMenu menu2 = new JMenu("Inspeccionar");
+		JMenu menu2 = new JMenu("Usuarios");
 		
 		//ITEMS DEL MENU
-		JMenuItem op_Cuenta = new JMenuItem("Cuenta");
-		JMenuItem op_Elemen = new JMenuItem("Elementos");
-		JMenuItem op_Usuarios = new JMenuItem("Usuarios");
-		JMenuItem op_Servicios = new JMenuItem("Servicios");
-		JMenu op_DiseñoVentana = new JMenu("Diseño de ventana");
-		JMenuItem op_ModoBlanc = new JRadioButtonMenuItem("Modo blanco");
-		JMenuItem op_ModoOsc = new JRadioButtonMenuItem("Modo oscuro");
+		JMenuItem op_Alta = new JMenuItem("Alta");
 		
-		//GRUPO DE BOTONES
-		ButtonGroup modos = new ButtonGroup();
-		modos.add(op_ModoBlanc);
-		modos.add(op_ModoOsc);
-		op_ModoBlanc.setSelected(true);
+		op_Alta.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				goTo("altaUsuarios");
+			}
+			
+		});
 		
-		//AGREGA RADIO BUTTONS A LA OPCION
-		op_DiseñoVentana.add(op_ModoBlanc);
-		op_DiseñoVentana.add(op_ModoOsc);
+		JMenuItem op_Baja = new JMenuItem("Baja");
 		
+		op_Baja.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				goTo("bajaUsuarios");
+			}
+			
+		});
+		
+		JMenuItem op_Consultar = new JMenuItem("Consultar");
+		
+		op_Consultar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				goTo("consultar");
+			}
+			
+		});
+	
 		//SE AÑADEN LOS ITEMS AL MENU
-		menu2.add(op_Cuenta);
-		menu2.add(op_Elemen);
-		menu2.add(op_Usuarios);
-		menu2.add(op_Servicios);
-		menu2.add(op_DiseñoVentana);
+		menu2.add(op_Alta);
+		menu2.add(op_Baja);
+		menu2.add(op_Consultar);
 		
 		//OPCIONES DEL MENU
 		JMenu menu3 = new JMenu("Ayuda");
 		
 		//ITEMS DEL MENU
-		JMenuItem op_VisitarPag = new JMenuItem("Visitar pagina");
-		JMenuItem op_ModoInsp = new JCheckBoxMenuItem("Modo inspector");	//ITEM DE TIPO CHECK BOX
+		JMenuItem op_CrearUsuario = new JMenuItem("¿Como crear un usuario?");
+		
+		op_CrearUsuario.addActionListener(new ActionListener() {
 
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				goTo("comoCrearUsuario");
+			}
+			
+		});
+		
+		JMenuItem op_AccederSistema = new JMenuItem("¿Como acceder al sistema?");
+		
+		op_AccederSistema.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				goTo("comoAccederSistema");
+			}
+			
+		});
+		
+		JMenuItem op_OlvidoContraseña = new JMenuItem("¿Que pasa si olvide mi contraseña?");
+		
+		op_OlvidoContraseña.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				goTo("comoRecuperarContraseña");
+			}
+			
+		});
+		
 		//SE AÑADEN LOS ITEMS AL MENU
-		menu3.add(op_VisitarPag);
-		menu3.add(op_ModoInsp);
+		menu3.add(op_CrearUsuario);
+		menu3.add(op_AccederSistema);
+		menu3.add(op_OlvidoContraseña);
 		
 		//SE AÑADEN LAS OPCIONES A LA BARRA
 		barra.add(menu1);
@@ -281,7 +329,7 @@ public class Ventana extends JFrame
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				
 				String cadenaContraseña = new String(contraseña.getPassword());
 				
 				if(usuario.getText().equals(""))	//-----------------USUARIO VACIO
@@ -306,12 +354,12 @@ public class Ventana extends JFrame
 						if(cadenaContraseña.equals("delunoalseis"))	//-CONTRASEÑA LLENA Y CORRECTA
 						{
 							contraseña.setBorder(new LineBorder(Color.GREEN, 4, true));
-							JOptionPane.showMessageDialog(null, "Inicio de sesion exitoso");
+							JOptionPane.showMessageDialog(null, "Inicio de sesion exitoso", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
 						}
 						else	//-------------------------------------CONTRASEÑA LLENA PERO INCORRECTA
 						{
 							contraseña.setBorder(new LineBorder(Color.RED, 4, true));
-							JOptionPane.showMessageDialog(null, "Error: Datos incorrectos");
+							JOptionPane.showMessageDialog(null, "Datos incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
 						}
 					}
 					else	//----------------------------------------USUARIO LLENO PERO INCORRECTO
@@ -325,7 +373,7 @@ public class Ventana extends JFrame
 						else	//------------------------------------CONTRASEÑA LLENA PERO INCORRECTA
 						{
 							contraseña.setBorder(new LineBorder(Color.GREEN, 4, true));
-							JOptionPane.showMessageDialog(null, "Error: Datos incorrectos");
+							JOptionPane.showMessageDialog(null, "Datos incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
 						}
 					}
 				}
@@ -595,7 +643,7 @@ public class Ventana extends JFrame
 		registro.add(confirmar);
 		
 		JButton soporteTecnico = new JButton("Inicia sesion");
-		soporteTecnico.setBounds(208, 638 , 150, 30);
+		soporteTecnico.setBounds(224, 638 , 112, 30);
 		soporteTecnico.setForeground(Color.BLACK);
 		soporteTecnico.setFont(new Font("Italic", Font.ITALIC, 19));
 		soporteTecnico.setOpaque(false);
@@ -616,7 +664,7 @@ public class Ventana extends JFrame
 		return fondoRegistro;
 	}	
 	
-	public JPanel usuarios()
+	public JPanel consultar()
 	{
 		JPanel fondoUsuarios = new JPanel();	//FONDO DEL LOGIN
 		fondoUsuarios.setBounds(0, 0, 1024, 720);
@@ -689,18 +737,173 @@ public class Ventana extends JFrame
 		return fondoUsuarios;
 	}
 
+	public JPanel recuperarCuenta()
+	{
+		JPanel fondoRecuperar = new JPanel();
+		fondoRecuperar.setBounds(0, 0, 1024, 720);
+		fondoRecuperar.setOpaque(true);
+		fondoRecuperar.setBackground(Color.DARK_GRAY);
+		fondoRecuperar.setLayout(null);
+		
+		JLabel tituloRecuperarCuenta = new JLabel("Recuperacion de cuenta");
+		tituloRecuperarCuenta.setBounds(400, 50, 260, 20);
+		tituloRecuperarCuenta.setOpaque(false);
+		tituloRecuperarCuenta.setLayout(null);
+		tituloRecuperarCuenta.setForeground(Color.WHITE);
+		tituloRecuperarCuenta.setFont(new Font("Arial", Font.BOLD, 20));
+		fondoRecuperar.add(tituloRecuperarCuenta);
+		
+		return fondoRecuperar;
+	}
+	
+	public JPanel altaUsuarios()
+	{
+		JPanel fondoAlta = new JPanel();
+		fondoAlta.setBounds(0, 0, 1024, 720);
+		fondoAlta.setOpaque(true);
+		fondoAlta.setBackground(Color.GRAY);
+		fondoAlta.setLayout(null);
+		
+		JLabel tituloAlta = new JLabel("Alta de usuario");
+		tituloAlta.setBounds(400, 50, 260, 20);
+		tituloAlta.setOpaque(false);
+		tituloAlta.setLayout(null);
+		tituloAlta.setForeground(Color.WHITE);
+		tituloAlta.setFont(new Font("Arial", Font.BOLD, 20));
+		fondoAlta.add(tituloAlta);
+		
+		return fondoAlta;
+	}
+	
+	public JPanel bajaUsuarios()
+	{
+		JPanel fondoBaja = new JPanel();
+		fondoBaja.setBounds(0, 0, 1024, 720);
+		fondoBaja.setOpaque(true);
+		fondoBaja.setBackground(Color.BLACK);
+		fondoBaja.setLayout(null);
+		
+		JLabel tituloBaja = new JLabel("Baja de usuario");
+		tituloBaja.setBounds(400, 50, 260, 20);
+		tituloBaja.setOpaque(false);
+		tituloBaja.setLayout(null);
+		tituloBaja.setForeground(Color.WHITE);
+		tituloBaja.setFont(new Font("Arial", Font.BOLD, 20));
+		fondoBaja.add(tituloBaja);
+		
+		return fondoBaja;
+	}
+	
+	public JPanel comoCrearUsuario()
+	{
+		JPanel fondoCrearUsuario = new JPanel();
+		fondoCrearUsuario.setBounds(0, 0, 1024, 720);
+		fondoCrearUsuario.setOpaque(true);
+		fondoCrearUsuario.setBackground(Color.ORANGE);
+		fondoCrearUsuario.setLayout(null);
+		
+		JLabel tituloCrearUsuario = new JLabel("Como crear usuario");
+		tituloCrearUsuario.setBounds(400, 50, 260, 20);
+		tituloCrearUsuario.setOpaque(false);
+		tituloCrearUsuario.setLayout(null);
+		tituloCrearUsuario.setForeground(Color.BLACK);
+		tituloCrearUsuario.setFont(new Font("Arial", Font.BOLD, 20));
+		fondoCrearUsuario.add(tituloCrearUsuario);
+		
+		return fondoCrearUsuario;
+	}
+	
+	public JPanel comoAccederSistema()
+	{
+		JPanel fondoAccederSistema = new JPanel();
+		fondoAccederSistema.setBounds(0, 0, 1024, 720);
+		fondoAccederSistema.setOpaque(true);
+		fondoAccederSistema.setBackground(Color.PINK);
+		fondoAccederSistema.setLayout(null);
+		
+		JLabel tituloAccederSistema = new JLabel("Como acceder al sistema");
+		tituloAccederSistema.setBounds(400, 50, 260, 20);
+		tituloAccederSistema.setOpaque(false);
+		tituloAccederSistema.setLayout(null);
+		tituloAccederSistema.setForeground(Color.BLACK);
+		tituloAccederSistema.setFont(new Font("Arial", Font.BOLD, 20));
+		fondoAccederSistema.add(tituloAccederSistema);
+		
+		return fondoAccederSistema;
+	}
+	
+	public JPanel comoRecuperarContraseña()
+	{
+		JPanel fondoRecuperarContraseña = new JPanel();
+		fondoRecuperarContraseña.setBounds(0, 0, 1024, 720);
+		fondoRecuperarContraseña.setOpaque(true);
+		fondoRecuperarContraseña.setBackground(Color.RED);
+		fondoRecuperarContraseña.setLayout(null);
+		
+		JLabel tituloRecuperarContraseña = new JLabel("Como recuperar contraseña");
+		tituloRecuperarContraseña.setBounds(400, 50, 280, 20);
+		tituloRecuperarContraseña.setOpaque(false);
+		tituloRecuperarContraseña.setLayout(null);
+		tituloRecuperarContraseña.setForeground(Color.WHITE);
+		tituloRecuperarContraseña.setFont(new Font("Arial", Font.BOLD, 20));
+		fondoRecuperarContraseña.add(tituloRecuperarContraseña);
+		
+		return fondoRecuperarContraseña;
+	}
+	
 	public void goTo(String cambio)	//METODO PARA CAMBIO DE PANELES / VENTANAS
 	{
 		this.getContentPane().removeAll();
 
-		if(cambio.equals("registro"))
+		switch(cambio)
 		{
-			this.add(registro());			
-		}
-		else
+		case "login":
 		{
 			this.add(login());
 		}
+			break;
+		case "registro":
+		{
+			this.add(registro());
+		}
+			break;
+		case "consultar":
+		{
+			this.add(consultar());
+		}
+			break;
+		case "recuperarCuenta":
+		{
+			this.add(recuperarCuenta());
+		}
+			break;
+		case "altaUsuarios":
+		{
+			this.add(altaUsuarios());
+		}
+			break;
+		case "bajaUsuarios":
+		{
+			this.add(bajaUsuarios());
+		}
+			break;
+		case "comoCrearUsuario":
+		{
+			this.add(comoCrearUsuario());
+		}
+			break;
+		case "comoAccederSistema":
+		{
+			this.add(comoAccederSistema());
+		}
+			break;
+		case "comoRecuperarContraseña":
+		{
+			this.add(comoRecuperarContraseña());
+		}
+			break;
+		}
+		
 		this.repaint();
 		this.revalidate();		
 	}
