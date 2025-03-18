@@ -5,6 +5,8 @@ import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
+
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -50,9 +52,10 @@ public class Ventana extends JFrame
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	//QUE PASA CUANDO CIERRO MI APLICACION
 		this.setLocationRelativeTo(null);	//SOBRE QUE ELEMENTOS COLOCARE MI ITEM
 		
-		this.add(login());	//LLAMAMOS AL METODO APRA INVOCAR EL PANEL
+//		this.add(login());	//LLAMAMOS AL METODO APRA INVOCAR EL PANEL
 //		this.add(registro());
 //		this.add(consultar());
+		this.add(aleatorio());
 		
 		this.repaint();
 		this.revalidate();
@@ -1286,6 +1289,49 @@ public class Ventana extends JFrame
 		fondoRecuperarContraseña.add(anterior);
 		
 		return fondoRecuperarContraseña;
+	}
+	
+	public JPanel aleatorio()
+	{
+		JPanel main = new JPanel();
+		main.setBounds(0, 0, 1024, 720);
+		main.setBackground(Color.WHITE);
+		main.setLayout(null);
+		
+		JButton boton = new JButton("PRESIONAME");
+		boton.setBounds(380, 300, 270, 50);
+		boton.setOpaque(true);
+		boton.setBorder(new LineBorder(Color.BLACK, 3));
+		boton.setFont(new Font("Arial", Font.BOLD, 30));
+		boton.setForeground(Color.BLACK);
+		boton.setBackground(Color.WHITE);
+		
+		boton.addActionListener(new ActionListener()
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				Random rand = new Random();
+				
+				JButton randomBoton = new JButton("Cliky aqui");
+				randomBoton.setBounds(rand.nextInt(980) + 40, rand.nextInt(600) + 40, rand.nextInt(200) + 40, rand.nextInt(200) + 40);
+				randomBoton.setFont(new Font("Arial", Font.BOLD, rand.nextInt(30) + 10));
+				randomBoton.setOpaque(true);
+				randomBoton.setBackground(new Color(rand.nextInt(255) + 0, rand.nextInt(255) + 0, rand.nextInt(255) + 0));
+				randomBoton.setForeground(new Color(rand.nextInt(255) + 0, rand.nextInt(255) + 0, rand.nextInt(255) + 0));
+				randomBoton.setBorder(new LineBorder(Color.BLACK, 3));
+				main.add(randomBoton);
+				
+				main.repaint();
+				main.revalidate();
+			}
+	
+		});
+		
+		main.add(boton);;
+		
+		return main;
 	}
 	
 	public void goTo(String cambio)	//METODO PARA CAMBIO DE PANELES / VENTANAS
