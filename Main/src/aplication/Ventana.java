@@ -31,10 +31,10 @@ import javax.swing.border.LineBorder;
 
 public class Ventana extends JFrame 
 {	
-	Font label = new Font("Italic", Font.ITALIC, 22);	//FUENTE DE LETRA PERSONALIZADO
-	Font txtBox = new Font("Plain", Font.PLAIN, 30);	//FUENTE DE LETRA PERSONALIZADO
+	Font label = new Font("Arial", Font.BOLD, 22);	//FUENTE DE LETRA PERSONALIZADO
+	Font txtBox = new Font("SansSeriff", Font.PLAIN, 30);	//FUENTE DE LETRA PERSONALIZADO
 	Color verdeAzulado = new Color(54, 84, 79);	//COLOR PERSONALIZADO
-	Color grisClaro = new Color(204, 204, 204);	//COLOR PERSONALIZADO
+	Color grisBajo = new Color(77, 77, 77);	//COLOR PERSONALIZADO
 	LineBorder bordeado = new LineBorder(Color.BLACK, 3);	//SE CREA UN TIPO DE BORDEADO
 	Border redondo = BorderFactory.createLineBorder(Color.WHITE, 4, true);	//TIPO DE BORDEADO PARA REDONDEAR
 	ImageIcon etiquetas = new ImageIcon("etiquetas.jpg");	//iMAGEN DE FONDO PARA CAMPOS
@@ -227,7 +227,7 @@ public class Ventana extends JFrame
 		JLabel iniciaSesion = new JLabel("INICIAR SESIÓN");
 		iniciaSesion.setBounds(100, 23, 470, 100);
 		iniciaSesion.setForeground(Color.WHITE);
-		iniciaSesion.setFont(new Font("Roman Baseline", Font.ROMAN_BASELINE, 60));	//PODEMOS ESTABLECER UN FONT DIRECTAMENTE A LA ETIQUETA
+		iniciaSesion.setFont(new Font("Tahoma", Font.ROMAN_BASELINE, 60));	//PODEMOS ESTABLECER UN FONT DIRECTAMENTE A LA ETIQUETA
 		login.add(iniciaSesion);
 		
 		JLabel ingresaUsuario = new JLabel("Nombre de usuario*");
@@ -491,7 +491,7 @@ public class Ventana extends JFrame
 		JLabel Registrarse = new JLabel("REGISTRO");
 		Registrarse.setBounds(179, 0, 312, 100);
 		Registrarse.setForeground(Color.WHITE);
-		Registrarse.setFont(new Font("Roman Baseline", Font.ROMAN_BASELINE, 60));
+		Registrarse.setFont(new Font("Tahoma", Font.ROMAN_BASELINE, 60));
 		registro.add(Registrarse);
 		
 		JLabel ingresaUsuario = new JLabel("Nombre de usuario*");
@@ -507,7 +507,7 @@ public class Ventana extends JFrame
 		registro.add(ingresaContraseña);
 		
 		JLabel biografia = new JLabel("Biografia*");
-		biografia.setBounds(284, 305, 99, 45);
+		biografia.setBounds(284, 305, 110, 45);
 		biografia.setForeground(Color.WHITE);
 		biografia.setFont(label);
 		registro.add(biografia);
@@ -527,27 +527,27 @@ public class Ventana extends JFrame
 		//CAJAS DE TXETO PARA CAPTURAR INFORMACION
 		JTextField usuario = new JTextField();
 		usuario.setBounds(20, 140, 480, 48);
-		usuario.setForeground(Color.BLACK);
+		usuario.setForeground(Color.WHITE);
 		usuario.setOpaque(true);
-		usuario.setBackground(grisClaro);
+		usuario.setBackground(grisBajo);
 		usuario.setBorder(bordeado);	//SSE UTILIZA EL TIPO DE BORDEADO CREADO
 		usuario.setFont(txtBox);
 		registro.add(usuario);
 		
 		JPasswordField contraseña = new JPasswordField();
 		contraseña.setBounds(20, 245, 480, 48);
-		contraseña.setForeground(Color.BLACK);
+		contraseña.setForeground(Color.WHITE);
 		contraseña.setOpaque(true);
-		contraseña.setBackground(grisClaro);
+		contraseña.setBackground(grisBajo);
 		contraseña.setBorder(bordeado);	//SE UTILIZA EL TIPO DE BORDEADO CREADO
 		contraseña.setFont(txtBox);
 		registro.add(contraseña);
 		
 		JTextArea bio = new JTextArea();
 		bio.setBounds(20, 355, 630, 87);
-		bio.setForeground(Color.BLACK);
+		bio.setForeground(Color.WHITE);
 		bio.setOpaque(true);
-		bio.setBackground(grisClaro);
+		bio.setBackground(grisBajo);
 		bio.setBorder(bordeado);	//SE UTILIZA EL TIPO DE BORDEADO CREADO
 		bio.setFont(new Font("Plain", Font.PLAIN, 20));
 		registro.add(bio);
@@ -589,9 +589,9 @@ public class Ventana extends JFrame
 		//CAJA DESPEGABLE
 		JComboBox <String> ubi = new JComboBox<String>();	//EL COMBO BOX SE ESTABLECE DE TIPO STRING
 		ubi.setBounds(400, 490, 250, 45);
-		ubi.setForeground(Color.BLACK);
+		ubi.setForeground(Color.WHITE);
 		ubi.setFont(new Font("Plain", Font.PLAIN, 20));
-		ubi.setBackground(grisClaro);
+		ubi.setBackground(grisBajo);
 		ubi.setBorder(bordeado);	//SE UTILIZA EL TIPO DE BORDEADO CREADO
 		ubi.addItem("Seleccione su ubicacion");	//EMPIEZA SIENDO LA PRIMER OPCION
 		ubi.addItem("Camino Real");	//SEGUNDA OPCION
@@ -604,10 +604,10 @@ public class Ventana extends JFrame
 		//BOTON DE CONFIRMACION
 		JButton confirmar = new JButton("Registrarse");
 		confirmar.setBounds(420, 604, 240, 70);
-		confirmar.setForeground(Color.BLACK);
+		confirmar.setForeground(Color.WHITE);
 		confirmar.setFont(new Font("Italic", Font.ITALIC, 40));
 		confirmar.setOpaque(true);
-		confirmar.setBackground(grisClaro);
+		confirmar.setBackground(grisBajo);
 		confirmar.setBorderPainted(true);
 		confirmar.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));	//SE ESTABLECE UN COLOR Y GROSOR DE BORDE
 		
@@ -643,9 +643,9 @@ public class Ventana extends JFrame
 		registro.add(confirmar);
 		
 		JButton soporteTecnico = new JButton("Inicia sesion");
-		soporteTecnico.setBounds(224, 638 , 112, 30);
-		soporteTecnico.setForeground(Color.BLACK);
-		soporteTecnico.setFont(new Font("Italic", Font.ITALIC, 19));
+		soporteTecnico.setBounds(224, 638 , 120, 30);
+		soporteTecnico.setForeground(Color.RED);
+		soporteTecnico.setFont(new Font("Arial", Font.BOLD, 19));
 		soporteTecnico.setOpaque(false);
 		soporteTecnico.setBackground(new Color(54, 84, 79));
 		soporteTecnico.setBorder(null);
@@ -660,6 +660,15 @@ public class Ventana extends JFrame
 		});
 		
 		registro.add(soporteTecnico);
+		
+		//IMAGENES DE FONDO
+		JLabel imgFondo = new JLabel(new ImageIcon("fondoRegistro.jpg"));
+		imgFondo.setBounds(0, 0, 1024, 720);
+		fondoRegistro.add(imgFondo);
+		
+		JLabel imgLogin = new JLabel(new ImageIcon("registro.jpg"));
+		imgLogin.setBounds(0, 0, 670, 720);
+		registro.add(imgLogin);
 				
 		return fondoRegistro;
 	}	
@@ -745,12 +754,11 @@ public class Ventana extends JFrame
 		fondoRecuperar.setBackground(Color.DARK_GRAY);
 		fondoRecuperar.setLayout(null);
 		
+		//ETIQUETAS DE TEXTO
 		JLabel tituloRecuperarCuenta = new JLabel("Recuperacion de cuenta");
-		tituloRecuperarCuenta.setBounds(400, 50, 260, 20);
-		tituloRecuperarCuenta.setOpaque(false);
-		tituloRecuperarCuenta.setLayout(null);
+		tituloRecuperarCuenta.setBounds(100, 23, 470, 100);
 		tituloRecuperarCuenta.setForeground(Color.WHITE);
-		tituloRecuperarCuenta.setFont(new Font("Arial", Font.BOLD, 20));
+		tituloRecuperarCuenta.setFont(new Font("Tahoma", Font.ROMAN_BASELINE, 60));	//PODEMOS ESTABLECER UN FONT DIRECTAMENTE A LA ETIQUETA
 		fondoRecuperar.add(tituloRecuperarCuenta);
 		
 		return fondoRecuperar;
@@ -765,7 +773,7 @@ public class Ventana extends JFrame
 		fondoAlta.setLayout(null);
 		
 		JLabel tituloAlta = new JLabel("Alta de usuario");
-		tituloAlta.setBounds(400, 50, 260, 20);
+		tituloAlta.setBounds(430, 50, 260, 20);
 		tituloAlta.setOpaque(false);
 		tituloAlta.setLayout(null);
 		tituloAlta.setForeground(Color.WHITE);
@@ -784,7 +792,7 @@ public class Ventana extends JFrame
 		fondoBaja.setLayout(null);
 		
 		JLabel tituloBaja = new JLabel("Baja de usuario");
-		tituloBaja.setBounds(400, 50, 260, 20);
+		tituloBaja.setBounds(430, 50, 260, 20);
 		tituloBaja.setOpaque(false);
 		tituloBaja.setLayout(null);
 		tituloBaja.setForeground(Color.WHITE);
