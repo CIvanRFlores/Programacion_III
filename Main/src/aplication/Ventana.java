@@ -681,8 +681,8 @@ public class Ventana extends JFrame
 		fondoUsuarios.setBackground(new Color(31, 95, 97));
 		fondoUsuarios.setLayout(null);
 		
-		JLabel titulo = new JLabel("Usuarios");
-		titulo.setBounds(374, 20, 470, 50);
+		JLabel titulo = new JLabel("Lista de usuarios");
+		titulo.setBounds(270, 20, 470, 50);
 		titulo.setForeground(Color.WHITE);
 		titulo.setFont(new Font("Roman Baseline", Font.ROMAN_BASELINE, 60));	//PODEMOS ESTABLECER DIRECTAMENTE UN FONT A LA ETIQUETA
 		fondoUsuarios.add(titulo);
@@ -751,15 +751,63 @@ public class Ventana extends JFrame
 		JPanel fondoRecuperar = new JPanel();
 		fondoRecuperar.setBounds(0, 0, 1024, 720);
 		fondoRecuperar.setOpaque(true);
-		fondoRecuperar.setBackground(Color.DARK_GRAY);
+		fondoRecuperar.setBackground(new Color(186, 122, 2));
 		fondoRecuperar.setLayout(null);
 		
-		//ETIQUETAS DE TEXTO
-		JLabel tituloRecuperarCuenta = new JLabel("Recuperacion de cuenta");
-		tituloRecuperarCuenta.setBounds(100, 23, 470, 100);
-		tituloRecuperarCuenta.setForeground(Color.WHITE);
-		tituloRecuperarCuenta.setFont(new Font("Tahoma", Font.ROMAN_BASELINE, 60));	//PODEMOS ESTABLECER UN FONT DIRECTAMENTE A LA ETIQUETA
-		fondoRecuperar.add(tituloRecuperarCuenta);
+		JPanel recuperarCuenta = new JPanel();
+		recuperarCuenta.setBounds(177, 0, 670, 720);
+		recuperarCuenta.setOpaque(true);
+		recuperarCuenta.setBackground(new Color(207, 163, 82));
+		recuperarCuenta.setLayout(null);
+		fondoRecuperar.add(recuperarCuenta);
+
+		JLabel titulo = new JLabel("RECUPERAR CUENTA");
+		titulo.setBounds(55, 18, 670, 100);
+		titulo.setForeground(Color.WHITE);
+		titulo.setFont(new Font("Tahoma", Font.ROMAN_BASELINE, 60));	//PODEMOS ESTABLECER UN FONT DIRECTAMENTE A LA ETIQUETA
+		recuperarCuenta.add(titulo);
+		
+		JLabel lblUsuario = new JLabel("Usuario:");
+		lblUsuario.setBounds(20, 148, 500, 50);
+		lblUsuario.setForeground(Color.WHITE);
+		lblUsuario.setOpaque(false);
+		lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 35));
+		recuperarCuenta.add(lblUsuario);
+		
+		JTextField campoUsuario = new JTextField();
+		campoUsuario.setBounds(20, 208, 500, 50);
+		campoUsuario.setBackground(Color.GRAY);
+		campoUsuario.setForeground(Color.WHITE);
+		campoUsuario.setFont(new Font("Tahoma", Font.BOLD, 35));
+		campoUsuario.setBorder(new LineBorder(Color.DARK_GRAY, 2));
+		recuperarCuenta.add(campoUsuario);
+		
+		JLabel lblCorreo = new JLabel("Correo electronico:");
+		lblCorreo.setBounds(20, 278, 500, 50);
+		lblCorreo.setForeground(Color.WHITE);
+		lblCorreo.setOpaque(false);
+		lblCorreo.setFont(new Font("Tahoma", Font.BOLD, 40));
+		recuperarCuenta.add(lblCorreo);
+		
+		JTextField campoCorreo = new JTextField();
+		campoCorreo.setBounds(20, 338, 500, 50);
+		campoCorreo.setBackground(Color.GRAY);
+		campoCorreo.setForeground(Color.WHITE);
+		campoCorreo.setFont(new Font("Tahoma", Font.BOLD, 35));
+		campoCorreo.setBorder(new LineBorder(Color.DARK_GRAY, 2));
+		recuperarCuenta.add(campoCorreo);
+		
+		JButton botonRegreso = new JButton("<- Regresar");
+		botonRegreso.setBounds(15, 610, 210, 55);
+		botonRegreso.setFont(new Font("Arial", Font.BOLD, 30));
+		botonRegreso.setForeground(Color.BLACK);
+		recuperarCuenta.add(botonRegreso);
+		
+		JButton botonRecuperar = new JButton("Recuperar");
+		botonRecuperar.setBounds(460, 610, 190, 55);
+		botonRecuperar.setFont(new Font("Arial", Font.BOLD, 30));
+		botonRecuperar.setForeground(Color.BLACK);
+		recuperarCuenta.add(botonRecuperar);
 		
 		return fondoRecuperar;
 	}
@@ -769,16 +817,102 @@ public class Ventana extends JFrame
 		JPanel fondoAlta = new JPanel();
 		fondoAlta.setBounds(0, 0, 1024, 720);
 		fondoAlta.setOpaque(true);
-		fondoAlta.setBackground(Color.GRAY);
+		fondoAlta.setLayout(null);
+		fondoAlta.setBackground(new Color(45, 136, 140));
 		fondoAlta.setLayout(null);
 		
-		JLabel tituloAlta = new JLabel("Alta de usuario");
-		tituloAlta.setBounds(430, 50, 260, 20);
-		tituloAlta.setOpaque(false);
-		tituloAlta.setLayout(null);
-		tituloAlta.setForeground(Color.WHITE);
-		tituloAlta.setFont(new Font("Arial", Font.BOLD, 20));
-		fondoAlta.add(tituloAlta);
+		JLabel fotoPerfil = new JLabel();
+		fotoPerfil.setBounds(30, 30, 180, 280);
+		fotoPerfil.setOpaque(true);
+		fotoPerfil.setBackground(new Color(195, 195, 195));
+		fotoPerfil.setBorder(new LineBorder(new Color(89, 89, 89), 2));
+		fotoPerfil.setIcon(new ImageIcon("ftoPerfil.png"));
+		fondoAlta.add(fotoPerfil);
+		
+		JLabel nombre = new JLabel("Nombre completo:");
+		nombre.setBounds(240, 40, 400, 40);
+		nombre.setForeground(Color.WHITE);
+		nombre.setFont(new Font("Arial", Font.BOLD, 40));
+		fondoAlta.add(nombre);
+		
+		JLabel cajaNombre = new JLabel();
+		cajaNombre.setBounds(240, 110, 720, 50);
+		cajaNombre.setForeground(Color.BLACK);
+		cajaNombre.setOpaque(true);
+		cajaNombre.setBackground(new Color(195, 195, 195));
+		cajaNombre.setBorder(new LineBorder(new Color(89, 89, 89), 2));
+		cajaNombre.setFont(new Font("Arial", Font.BOLD, 40));
+		fondoAlta.add(cajaNombre);
+		
+		JLabel correo = new JLabel("Correo electronico:");
+		correo.setBounds(240, 200, 400, 40);
+		correo.setForeground(Color.WHITE);
+		correo.setFont(new Font("Arial", Font.BOLD, 40));
+		fondoAlta.add(correo);
+		
+		JLabel cajaCorreo = new JLabel();
+		cajaCorreo.setBounds(240, 270, 720, 50);
+		cajaCorreo.setForeground(Color.BLACK);
+		cajaCorreo.setOpaque(true);
+		cajaCorreo.setBackground(new Color(195, 195, 195));
+		cajaCorreo.setBorder(new LineBorder(new Color(89, 89, 89), 2));
+		cajaCorreo.setFont(new Font("Arial", Font.BOLD, 40));
+		fondoAlta.add(cajaCorreo);
+		
+		JLabel biografia = new JLabel("Biografia:");
+		biografia.setBounds(40, 335, 400, 40);
+		biografia.setForeground(Color.WHITE);
+		biografia.setFont(new Font("Arial", Font.BOLD, 40));
+		fondoAlta.add(biografia);
+		
+		JLabel cajaBriografia = new JLabel();
+		cajaBriografia.setBounds(40, 390, 920, 100);
+		cajaBriografia.setForeground(Color.BLACK);
+		cajaBriografia.setOpaque(true);
+		cajaBriografia.setBackground(new Color(195, 195, 195));
+		cajaBriografia.setBorder(new LineBorder(new Color(89, 89, 89), 2));
+		cajaBriografia.setFont(new Font("Arial", Font.BOLD, 40));
+		fondoAlta.add(cajaBriografia);
+		
+		JLabel ubicacion = new JLabel("Ubicacion:");
+		ubicacion.setBounds(40, 510, 400, 40);
+		ubicacion.setForeground(Color.WHITE);
+		ubicacion.setFont(new Font("Arial", Font.BOLD, 40));
+		fondoAlta.add(ubicacion);
+		
+		JLabel cajaUbicacion = new JLabel();
+		cajaUbicacion.setBounds(260, 510, 300, 50);
+		cajaUbicacion.setForeground(Color.BLACK);
+		cajaUbicacion.setOpaque(true);
+		cajaUbicacion.setBackground(new Color(195, 195, 195));
+		cajaUbicacion.setBorder(new LineBorder(new Color(89, 89, 89), 2));
+		cajaUbicacion.setFont(new Font("Arial", Font.BOLD, 40));
+		fondoAlta.add(cajaUbicacion);
+		
+		JButton menu = new JButton("Menu");
+		menu.setBounds(30, 600, 170, 60);
+		menu.setFont(new Font("Arial", Font.PLAIN, 40));
+		fondoAlta.add(menu);
+		
+		JButton consultar = new JButton("Consultar");
+		consultar.setBounds(220, 600, 220, 60);
+		consultar.setFont(new Font("Arial", Font.PLAIN, 40));
+		fondoAlta.add(consultar);
+		
+		JButton darAlta = new JButton("Dar alta");
+		darAlta.setBounds(460, 600, 200, 60);
+		darAlta.setFont(new Font("Arial", Font.PLAIN, 40));
+		fondoAlta.add(darAlta);
+		
+		JButton anterior = new JButton("<");
+		anterior.setBounds(800, 600, 65, 60);
+		anterior.setFont(new Font("Arial", Font.PLAIN, 40));
+		fondoAlta.add(anterior);
+		
+		JButton siguiente = new JButton(">");
+		siguiente.setBounds(875, 600, 65, 60);
+		siguiente.setFont(new Font("Arial", Font.PLAIN, 40));
+		fondoAlta.add(siguiente);
 		
 		return fondoAlta;
 	}
@@ -788,16 +922,116 @@ public class Ventana extends JFrame
 		JPanel fondoBaja = new JPanel();
 		fondoBaja.setBounds(0, 0, 1024, 720);
 		fondoBaja.setOpaque(true);
-		fondoBaja.setBackground(Color.BLACK);
+		fondoBaja.setBackground(new Color(22, 67, 69));
 		fondoBaja.setLayout(null);
 		
-		JLabel tituloBaja = new JLabel("Baja de usuario");
-		tituloBaja.setBounds(430, 50, 260, 20);
-		tituloBaja.setOpaque(false);
-		tituloBaja.setLayout(null);
-		tituloBaja.setForeground(Color.WHITE);
-		tituloBaja.setFont(new Font("Arial", Font.BOLD, 20));
-		fondoBaja.add(tituloBaja);
+		JLabel fotoPerfil = new JLabel();
+		fotoPerfil.setBounds(30, 30, 180, 280);
+		fotoPerfil.setOpaque(true);
+		fotoPerfil.setBackground(new Color(195, 195, 195));
+		fotoPerfil.setBorder(new LineBorder(new Color(89, 89, 89), 2));
+		fotoPerfil.setIcon(new ImageIcon("ftoPerfil.png"));
+		fondoBaja.add(fotoPerfil);
+		
+		JLabel nombre = new JLabel("Nombre completo:");
+		nombre.setBounds(240, 40, 400, 40);
+		nombre.setForeground(Color.WHITE);
+		nombre.setFont(new Font("Arial", Font.BOLD, 40));
+		fondoBaja.add(nombre);
+		
+		JLabel cajaNombre = new JLabel();
+		cajaNombre.setBounds(240, 110, 720, 50);
+		cajaNombre.setForeground(Color.BLACK);
+		cajaNombre.setOpaque(true);
+		cajaNombre.setBackground(new Color(195, 195, 195));
+		cajaNombre.setBorder(new LineBorder(new Color(89, 89, 89), 2));
+		cajaNombre.setFont(new Font("Arial", Font.BOLD, 40));
+		fondoBaja.add(cajaNombre);
+		
+		JLabel correo = new JLabel("Correo electronico:");
+		correo.setBounds(240, 200, 400, 40);
+		correo.setForeground(Color.WHITE);
+		correo.setFont(new Font("Arial", Font.BOLD, 40));
+		fondoBaja.add(correo);
+		
+		JLabel cajaCorreo = new JLabel();
+		cajaCorreo.setBounds(240, 270, 720, 50);
+		cajaCorreo.setForeground(Color.BLACK);
+		cajaCorreo.setOpaque(true);
+		cajaCorreo.setBackground(new Color(195, 195, 195));
+		cajaCorreo.setBorder(new LineBorder(new Color(89, 89, 89), 2));
+		cajaCorreo.setFont(new Font("Arial", Font.BOLD, 40));
+		fondoBaja.add(cajaCorreo);
+		
+		JLabel biografia = new JLabel("Biografia:");
+		biografia.setBounds(40, 335, 400, 40);
+		biografia.setForeground(Color.WHITE);
+		biografia.setFont(new Font("Arial", Font.BOLD, 40));
+		fondoBaja.add(biografia);
+		
+		JLabel cajaBriografia = new JLabel();
+		cajaBriografia.setBounds(40, 390, 920, 100);
+		cajaBriografia.setForeground(Color.BLACK);
+		cajaBriografia.setOpaque(true);
+		cajaBriografia.setBackground(new Color(195, 195, 195));
+		cajaBriografia.setBorder(new LineBorder(new Color(89, 89, 89), 2));
+		cajaBriografia.setFont(new Font("Arial", Font.BOLD, 40));
+		fondoBaja.add(cajaBriografia);
+		
+		JLabel ubicacion = new JLabel("Ubicacion:");
+		ubicacion.setBounds(40, 510, 400, 40);
+		ubicacion.setForeground(Color.WHITE);
+		ubicacion.setFont(new Font("Arial", Font.BOLD, 40));
+		fondoBaja.add(ubicacion);
+		
+		JLabel cajaUbicacion = new JLabel();
+		cajaUbicacion.setBounds(260, 510, 300, 50);
+		cajaUbicacion.setForeground(Color.BLACK);
+		cajaUbicacion.setOpaque(true);
+		cajaUbicacion.setBackground(new Color(195, 195, 195));
+		cajaUbicacion.setBorder(new LineBorder(new Color(89, 89, 89), 2));
+		cajaUbicacion.setFont(new Font("Arial", Font.BOLD, 40));
+		fondoBaja.add(cajaUbicacion);
+		
+		JLabel servicio = new JLabel("Servicio:");
+		servicio.setBounds(570, 510, 400, 40);
+		servicio.setForeground(Color.WHITE);
+		servicio.setFont(new Font("Arial", Font.BOLD, 40));
+		fondoBaja.add(servicio);
+		
+		JLabel cajaServicio = new JLabel();
+		cajaServicio.setBounds(740, 510, 220, 50);
+		cajaServicio.setForeground(Color.BLACK);
+		cajaServicio.setOpaque(true);
+		cajaServicio.setBackground(new Color(195, 195, 195));
+		cajaServicio.setBorder(new LineBorder(new Color(89, 89, 89), 2));
+		cajaServicio.setFont(new Font("Arial", Font.BOLD, 40));
+		fondoBaja.add(cajaServicio);
+		
+		JButton menu = new JButton("Menu");
+		menu.setBounds(30, 600, 170, 60);
+		menu.setFont(new Font("Arial", Font.PLAIN, 40));
+		fondoBaja.add(menu);
+		
+		JButton consultar = new JButton("Consultar");
+		consultar.setBounds(220, 600, 220, 60);
+		consultar.setFont(new Font("Arial", Font.PLAIN, 40));
+		fondoBaja.add(consultar);
+		
+		JButton darBaja = new JButton("Dar baja");
+		darBaja.setBounds(460, 600, 200, 60);
+		darBaja.setFont(new Font("Arial", Font.PLAIN, 40));
+		fondoBaja.add(darBaja);
+		
+		JButton anterior = new JButton("<");
+		anterior.setBounds(800, 600, 65, 60);
+		anterior.setFont(new Font("Arial", Font.PLAIN, 40));
+		fondoBaja.add(anterior);
+		
+		JButton siguiente = new JButton(">");
+		siguiente.setBounds(875, 600, 65, 60);
+		siguiente.setFont(new Font("Arial", Font.PLAIN, 40));
+		fondoBaja.add(siguiente);
 		
 		return fondoBaja;
 	}
@@ -807,17 +1041,76 @@ public class Ventana extends JFrame
 		JPanel fondoCrearUsuario = new JPanel();
 		fondoCrearUsuario.setBounds(0, 0, 1024, 720);
 		fondoCrearUsuario.setOpaque(true);
-		fondoCrearUsuario.setBackground(Color.ORANGE);
+		fondoCrearUsuario.setBackground(new Color(54, 48, 124));
 		fondoCrearUsuario.setLayout(null);
 		
-		JLabel tituloCrearUsuario = new JLabel("Como crear usuario");
-		tituloCrearUsuario.setBounds(400, 50, 260, 20);
-		tituloCrearUsuario.setOpaque(false);
-		tituloCrearUsuario.setLayout(null);
-		tituloCrearUsuario.setForeground(Color.BLACK);
-		tituloCrearUsuario.setFont(new Font("Arial", Font.BOLD, 20));
-		fondoCrearUsuario.add(tituloCrearUsuario);
+		JLabel titulo = new JLabel("FAQ - ¿Como crear un usuario?");
+		titulo.setBounds(40, 30, 500, 40);
+		titulo.setOpaque(false);
+		titulo.setLayout(null);
+		titulo.setForeground(Color.WHITE);
+		titulo.setFont(new Font("Tahoma", Font.BOLD, 30));
+		fondoCrearUsuario.add(titulo);
 		
+		//PANEL DE INFOMRACION
+		
+		JPanel panelInfo = new JPanel();
+		panelInfo.setBounds(40 ,85 ,934, 520);
+		panelInfo.setBackground(new Color(184, 183, 186));
+		panelInfo.setLayout(null);
+		panelInfo.setBorder(new LineBorder(Color.DARK_GRAY, 2));
+		fondoCrearUsuario.add(panelInfo);
+		
+		JTextArea info = new JTextArea("1. Para iniciar el proceso de creacion de un usuario primero debe dirigirse a la \nventana principal y seleccionar la Opcion [Registrar] o puede navegar directamente \na la opcion."
+				+ "\n\n2. Dentro de la seccion registro usted debe llenar los campos obligatorios y de ser \nposibles los opcionales."
+				+ "\n\n3. Recuerde que al llenar el registro usted debe aceptar los terminos y condiciones, \npara esto solo marque la casilla [Acepto terminos y condiciones]."
+				+ "\n\n4. Una vez registrado y aceptado todo selecciona la opcion [Registrar], al hacerlo se \nverificara que todos los campos esten llenos y la infomacion sea adecuada para el \nregistro.");
+		info.setBounds(20, 20, 950, 550);
+		info.setOpaque(false);
+		info.setFont(new Font("Arial", Font.PLAIN, 25));
+		info.setForeground(Color.BLACK);
+		panelInfo.add(info);
+		
+		//BOTONES DE NAVEGACION
+		
+		JButton volverInicio = new JButton("Volver inicio");
+		volverInicio.setBounds(40, 615, 200, 40);
+		volverInicio.setBackground(Color.darkGray);
+		volverInicio.setForeground(Color.WHITE);
+		volverInicio.setBorder(new LineBorder(Color.GRAY, 2));
+		volverInicio.setFont(new Font("Arial", Font.BOLD, 25));
+		
+		volverInicio.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				goTo("login");
+			}
+			
+		});
+		
+		fondoCrearUsuario.add(volverInicio);
+		
+		JButton siguiente = new JButton("Siguiente");
+		siguiente.setBounds(770, 615, 200, 40);
+		siguiente.setBackground(Color.darkGray);
+		siguiente.setForeground(Color.WHITE);
+		siguiente.setBorder(new LineBorder(Color.GRAY, 2));
+		siguiente.setFont(new Font("Arial", Font.BOLD, 25));
+		
+		siguiente.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				goTo("comoAccederSistema");
+			}
+			
+		});
+		
+		fondoCrearUsuario.add(siguiente);
+				
 		return fondoCrearUsuario;
 	}
 	
@@ -826,16 +1119,93 @@ public class Ventana extends JFrame
 		JPanel fondoAccederSistema = new JPanel();
 		fondoAccederSistema.setBounds(0, 0, 1024, 720);
 		fondoAccederSistema.setOpaque(true);
-		fondoAccederSistema.setBackground(Color.PINK);
+		fondoAccederSistema.setBackground(new Color(12, 145, 143));
 		fondoAccederSistema.setLayout(null);
 		
-		JLabel tituloAccederSistema = new JLabel("Como acceder al sistema");
-		tituloAccederSistema.setBounds(400, 50, 260, 20);
-		tituloAccederSistema.setOpaque(false);
-		tituloAccederSistema.setLayout(null);
-		tituloAccederSistema.setForeground(Color.BLACK);
-		tituloAccederSistema.setFont(new Font("Arial", Font.BOLD, 20));
-		fondoAccederSistema.add(tituloAccederSistema);
+		JLabel titulo = new JLabel("FAQ - ¿Como acceder al sistema?");
+		titulo.setBounds(40, 30, 550, 40);
+		titulo.setOpaque(false);
+		titulo.setLayout(null);
+		titulo.setForeground(Color.WHITE);
+		titulo.setFont(new Font("Tahoma", Font.BOLD, 30));
+		fondoAccederSistema.add(titulo);
+		
+		//PANEL DE INFOMRACION
+		
+		JPanel panelInfo = new JPanel();
+		panelInfo.setBounds(40 ,85 ,934, 520);
+		panelInfo.setBackground(new Color(184, 183, 186));
+		panelInfo.setLayout(null);
+		panelInfo.setBorder(new LineBorder(Color.DARK_GRAY, 2));
+		fondoAccederSistema.add(panelInfo);
+		
+		JTextArea info = new JTextArea("1. Para acceder al sistema, primero debe dirigirse a la ventana principal o \n[Iniciar sesion]."
+				+ "\n\n2. Dentro de la ventana debe llenar los campos obligatorios, tambien puede \nseleccionar la opcion [Recordar] para guardar la informacion proporcionada para \nfuturos inicios de sesion."
+				+ "\n\n3. Una vez llenados los camppos, seleccione la opcion [Entrar], posterior a eso se \nverificara que los datos proporcionados sean correctos o que no hayan datos \nfaltantes.");
+		info.setBounds(20, 20, 950, 550);
+		info.setOpaque(false);
+		info.setFont(new Font("Arial", Font.PLAIN, 25));
+		info.setForeground(Color.BLACK);
+		panelInfo.add(info);
+		
+		//BOTONES DE NAVEGACION
+		
+		JButton volverInicio = new JButton("Volver inicio");
+		volverInicio.setBounds(40, 615, 200, 40);
+		volverInicio.setBackground(Color.darkGray);
+		volverInicio.setForeground(Color.WHITE);
+		volverInicio.setBorder(new LineBorder(Color.GRAY, 2));
+		volverInicio.setFont(new Font("Arial", Font.BOLD, 25));
+		
+		volverInicio.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				goTo("login");
+			}
+			
+		});
+		
+		fondoAccederSistema.add(volverInicio);
+		
+		JButton siguiente = new JButton("Siguiente");
+		siguiente.setBounds(770, 615, 200, 40);
+		siguiente.setBackground(Color.darkGray);
+		siguiente.setForeground(Color.WHITE);
+		siguiente.setBorder(new LineBorder(Color.GRAY, 2));
+		siguiente.setFont(new Font("Arial", Font.BOLD, 25));
+		
+		siguiente.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				goTo("comoRecuperarContraseña");
+			}
+			
+		});
+		
+		fondoAccederSistema.add(siguiente);
+		
+		JButton anterior = new JButton("Anterior");
+		anterior.setBounds(560, 615, 200, 40);
+		anterior.setBackground(Color.darkGray);
+		anterior.setForeground(Color.WHITE);
+		anterior.setBorder(new LineBorder(Color.GRAY, 2));
+		anterior.setFont(new Font("Arial", Font.BOLD, 25));
+		
+		anterior.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				goTo("comoCrearUsuario");
+			}
+			
+		});
+		
+		fondoAccederSistema.add(anterior);
 		
 		return fondoAccederSistema;
 	}
@@ -845,16 +1215,75 @@ public class Ventana extends JFrame
 		JPanel fondoRecuperarContraseña = new JPanel();
 		fondoRecuperarContraseña.setBounds(0, 0, 1024, 720);
 		fondoRecuperarContraseña.setOpaque(true);
-		fondoRecuperarContraseña.setBackground(Color.RED);
+		fondoRecuperarContraseña.setBackground(new Color(72, 49, 133));
 		fondoRecuperarContraseña.setLayout(null);
 		
-		JLabel tituloRecuperarContraseña = new JLabel("Como recuperar contraseña");
-		tituloRecuperarContraseña.setBounds(400, 50, 280, 20);
-		tituloRecuperarContraseña.setOpaque(false);
-		tituloRecuperarContraseña.setLayout(null);
-		tituloRecuperarContraseña.setForeground(Color.WHITE);
-		tituloRecuperarContraseña.setFont(new Font("Arial", Font.BOLD, 20));
-		fondoRecuperarContraseña.add(tituloRecuperarContraseña);
+		JLabel titulo = new JLabel("FAQ - ¿Como recuperar la contraseña?");
+		titulo.setBounds(40, 30, 600, 40);
+		titulo.setOpaque(false);
+		titulo.setLayout(null);
+		titulo.setForeground(Color.WHITE);
+		titulo.setFont(new Font("Tahoma", Font.BOLD, 30));
+		fondoRecuperarContraseña.add(titulo);
+		
+		//PANEL DE INFOMRACION
+		
+		JPanel panelInfo = new JPanel();
+		panelInfo.setBounds(40 ,85 ,934, 520);
+		panelInfo.setBackground(new Color(184, 183, 186));
+		panelInfo.setLayout(null);
+		panelInfo.setBorder(new LineBorder(Color.DARK_GRAY, 2));
+		fondoRecuperarContraseña.add(panelInfo);
+		
+		JTextArea info = new JTextArea("1. Para recuperar la contraseña de la cuenta, primero debe dirigirse a la ventana \n[Recuperar cuenta]."
+				+ "\n\n2. Dentro de la ventana debe llenar uno de los dos campos solicitados ya sea \n[Usuario] o [Correo electronico], esto debe ser de manera obligatoria."
+				+ "\n\n3. Una vez se tenga alguno de los campos lleno, se debe seleccionar la opcion \n[Recuperar]."
+				+ "\n\n4. Empezara el proceso de recuperacion, para esto se enviara un mensaje via \ncorreo electronico donde se espere la confirmacion por parte del usuario para \nverificar que sea su cuenta, y tambien tendra la posibilidad de cambiar la \ncontraseña.");
+		info.setBounds(20, 20, 950, 550);
+		info.setOpaque(false);
+		info.setFont(new Font("Arial", Font.PLAIN, 25));
+		info.setForeground(Color.BLACK);
+		panelInfo.add(info);
+		
+		//BOTONES DE NAVEGACION
+		
+		JButton volverInicio = new JButton("Volver inicio");
+		volverInicio.setBounds(40, 615, 200, 40);
+		volverInicio.setBackground(Color.darkGray);
+		volverInicio.setForeground(Color.WHITE);
+		volverInicio.setBorder(new LineBorder(Color.GRAY, 2));
+		volverInicio.setFont(new Font("Arial", Font.BOLD, 25));
+		
+		volverInicio.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				goTo("login");
+			}
+			
+		});
+		
+		fondoRecuperarContraseña.add(volverInicio);
+		
+		JButton anterior = new JButton("Anterior");
+		anterior.setBounds(560, 615, 200, 40);
+		anterior.setBackground(Color.darkGray);
+		anterior.setForeground(Color.WHITE);
+		anterior.setBorder(new LineBorder(Color.GRAY, 2));
+		anterior.setFont(new Font("Arial", Font.BOLD, 25));
+		
+		anterior.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				goTo("comoAccederSistema");
+			}
+			
+		});
+		
+		fondoRecuperarContraseña.add(anterior);
 		
 		return fondoRecuperarContraseña;
 	}
