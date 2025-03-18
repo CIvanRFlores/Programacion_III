@@ -1314,13 +1314,25 @@ public class Ventana extends JFrame
 			{
 				Random rand = new Random();
 				
-				JButton randomBoton = new JButton("Cliky aqui");
-				randomBoton.setBounds(rand.nextInt(980) + 40, rand.nextInt(600) + 40, rand.nextInt(200) + 40, rand.nextInt(200) + 40);
+				JButton randomBoton = new JButton("CLIKY AQUI");
+				randomBoton.setBounds(rand.nextInt(980) + 0, rand.nextInt(600) + 0, rand.nextInt(200) + 40, rand.nextInt(200) + 40);
 				randomBoton.setFont(new Font("Arial", Font.BOLD, rand.nextInt(30) + 10));
 				randomBoton.setOpaque(true);
 				randomBoton.setBackground(new Color(rand.nextInt(255) + 0, rand.nextInt(255) + 0, rand.nextInt(255) + 0));
 				randomBoton.setForeground(new Color(rand.nextInt(255) + 0, rand.nextInt(255) + 0, rand.nextInt(255) + 0));
 				randomBoton.setBorder(new LineBorder(Color.BLACK, 3));
+				
+				randomBoton.addActionListener(new ActionListener()
+						{
+
+							@Override
+							public void actionPerformed(ActionEvent i) 
+							{
+								JOptionPane.showMessageDialog(null, randomBoton.getBackground(), "Hola", JOptionPane.INFORMATION_MESSAGE);								
+							}
+					
+						});
+				
 				main.add(randomBoton);
 				
 				main.repaint();
