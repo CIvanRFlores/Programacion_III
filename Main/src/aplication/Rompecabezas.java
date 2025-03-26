@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.Timer;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -20,7 +21,10 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 
 public class Rompecabezas {
@@ -29,13 +33,26 @@ public class Rompecabezas {
 	
 	public List<Integer> randNumeros = new ArrayList<Integer>();
 	
+	public int movimientos = 0;
+	
+	int milisegundos;
+	
+	int segundos;
+	
+	int minutos;
+	
+	Timer temporizador;
+		
 	ImageIcon skinTablero = new ImageIcon("skinTablero.jpg");
-	ImageIcon skinTableroHorizontal = new ImageIcon(skinTablero.getImage().getScaledInstance(2000, 55, Image.SCALE_DEFAULT));
+	ImageIcon skinTableroHorizontal = new ImageIcon(skinTablero.getImage().getScaledInstance(2000, 80, Image.SCALE_DEFAULT));
 	ImageIcon skinTableroVertical = new ImageIcon(skinTablero.getImage().getScaledInstance(55, 2000, Image.SCALE_DEFAULT));
+	ImageIcon skinTableroMovimientos = new ImageIcon(skinTablero.getImage().getScaledInstance(200, 80, Image.SCALE_DEFAULT));
+	ImageIcon skinTableroTemporizador = new ImageIcon(skinTablero.getImage().getScaledInstance(500, 80, Image.SCALE_DEFAULT));
+	
 	
 	ImageIcon skinCuadro = new ImageIcon("skinCuadros.jpg");
 	ImageIcon skinCuadroRender = new ImageIcon(skinCuadro.getImage().getScaledInstance(400, 400, Image.SCALE_DEFAULT));
-	ImageIcon skinCuadroMini = new ImageIcon(skinCuadro.getImage().getScaledInstance(150, 55, Image.SCALE_SMOOTH));
+	ImageIcon skinCuadroMini = new ImageIcon(skinCuadro.getImage().getScaledInstance(150, 70, Image.SCALE_SMOOTH));
 
 	JButton btnNewButton_1 = new JButton();
 	JButton btnNewButton_2 = new JButton();
@@ -53,6 +70,8 @@ public class Rompecabezas {
 	JButton btnNewButton_14 = new JButton();
 	JButton btnNewButton_15 = new JButton();
 	JButton btnNewButton_16 = new JButton();
+	
+	JLabel lblNewLabel_4 = new JLabel("Movimientos = " + movimientos);
 	
 	/**
 	 * Launch the application.
@@ -98,14 +117,10 @@ public class Rompecabezas {
 			arreglo[i] = randNumeros.get(i);
 		}
 		
-		for(int i = 0; i <  randNumeros.size(); i++)
-		{
-			System.out.println(arreglo[i]);
-		}
-		
 		frame = new JFrame();
 		frame.setBounds(0, 0, 800, 800);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		
 		JPanel panel = new JPanel();
@@ -128,12 +143,19 @@ public class Rompecabezas {
 						{
 							btnNewButton_2.setText(btnNewButton_1.getText());
 							btnNewButton_1.setText(" ");
+
+							movimientos++;
+							lblNewLabel_4.setText("Movimientos = " + movimientos);
 						}
 						else if(btnNewButton_5.getText().equals(" "))
 						{
 							btnNewButton_5.setText(btnNewButton_1.getText());
 							btnNewButton_1.setText(" ");
+							
+							movimientos++;
+							lblNewLabel_4.setText("Movimientos = " + movimientos);
 						}
+						validarGanar();
 					}
 				});
 		
@@ -151,17 +173,27 @@ public class Rompecabezas {
 				{
 					btnNewButton_1.setText(btnNewButton_2.getText());
 					btnNewButton_2.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
 				if(btnNewButton_3.getText().equals(" "))
 				{
 					btnNewButton_3.setText(btnNewButton_2.getText());
 					btnNewButton_2.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
 				else if(btnNewButton_6.getText().equals(" "))
 				{
 					btnNewButton_6.setText(btnNewButton_2.getText());
 					btnNewButton_2.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
+				validarGanar();
 			}
 		});
 		
@@ -179,17 +211,27 @@ public class Rompecabezas {
 				{
 					btnNewButton_2.setText(btnNewButton_3.getText());
 					btnNewButton_3.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
 				else if(btnNewButton_4.getText().equals(" "))
 				{
 					btnNewButton_4.setText(btnNewButton_3.getText());
 					btnNewButton_3.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
 				else if(btnNewButton_7.getText().equals(" "))
 				{
 					btnNewButton_7.setText(btnNewButton_3.getText());
 					btnNewButton_3.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
+				validarGanar();
 			}
 		});
 		
@@ -207,12 +249,19 @@ public class Rompecabezas {
 				{
 					btnNewButton_3.setText(btnNewButton_4.getText());
 					btnNewButton_4.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
 				else if(btnNewButton_8.getText().equals(" "))
 				{
 					btnNewButton_8.setText(btnNewButton_4.getText());
 					btnNewButton_4.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
+				validarGanar();
 			}
 		});
 		
@@ -230,17 +279,27 @@ public class Rompecabezas {
 				{
 					btnNewButton_1.setText(btnNewButton_5.getText());
 					btnNewButton_5.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
 				else if(btnNewButton_6.getText().equals(" "))
 				{
 					btnNewButton_6.setText(btnNewButton_5.getText());
 					btnNewButton_5.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
 				else if(btnNewButton_9.getText().equals(" "))
 				{
 					btnNewButton_9.setText(btnNewButton_5.getText());
 					btnNewButton_5.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
+				validarGanar();
 			}
 		});
 		
@@ -258,22 +317,35 @@ public class Rompecabezas {
 				{
 					btnNewButton_2.setText(btnNewButton_6.getText());
 					btnNewButton_6.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
 				else if(btnNewButton_5.getText().equals(" "))
 				{
 					btnNewButton_5.setText(btnNewButton_6.getText());
 					btnNewButton_6.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
 				else if(btnNewButton_7.getText().equals(" "))
 				{
 					btnNewButton_7.setText(btnNewButton_6.getText());
 					btnNewButton_6.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
 				else if(btnNewButton_10.getText().equals(" "))
 				{
 					btnNewButton_10.setText(btnNewButton_6.getText());
 					btnNewButton_6.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
+				validarGanar();
 			}
 		});
 		
@@ -291,22 +363,35 @@ public class Rompecabezas {
 				{
 					btnNewButton_3.setText(btnNewButton_7.getText());
 					btnNewButton_7.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
 				else if(btnNewButton_6.getText().equals(" "))
 				{
 					btnNewButton_6.setText(btnNewButton_7.getText());
 					btnNewButton_7.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
 				else if(btnNewButton_8.getText().equals(" "))
 				{
 					btnNewButton_8.setText(btnNewButton_7.getText());
 					btnNewButton_7.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
 				else if(btnNewButton_11.getText().equals(" "))
 				{
 					btnNewButton_11.setText(btnNewButton_7.getText());
 					btnNewButton_7.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
+				validarGanar();
 			}
 		});
 		
@@ -324,17 +409,27 @@ public class Rompecabezas {
 				{
 					btnNewButton_4.setText(btnNewButton_8.getText());
 					btnNewButton_8.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
 				else if(btnNewButton_7.getText().equals(" "))
 				{
 					btnNewButton_7.setText(btnNewButton_8.getText());
 					btnNewButton_8.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
 				else if(btnNewButton_12.getText().equals(" "))
 				{
 					btnNewButton_12.setText(btnNewButton_8.getText());
 					btnNewButton_8.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
+				validarGanar();
 			}
 		});
 		
@@ -352,17 +447,27 @@ public class Rompecabezas {
 				{
 					btnNewButton_5.setText(btnNewButton_9.getText());
 					btnNewButton_9.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
 				else if(btnNewButton_10.getText().equals(" "))
 				{
 					btnNewButton_10.setText(btnNewButton_9.getText());
 					btnNewButton_9.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
 				else if(btnNewButton_13.getText().equals(" "))
 				{
 					btnNewButton_13.setText(btnNewButton_9.getText());
 					btnNewButton_9.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
+				validarGanar();
 			}
 		});
 		
@@ -380,22 +485,35 @@ public class Rompecabezas {
 				{
 					btnNewButton_6.setText(btnNewButton_10.getText());
 					btnNewButton_10.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
 				else if(btnNewButton_9.getText().equals(" "))
 				{
 					btnNewButton_9.setText(btnNewButton_10.getText());
 					btnNewButton_10.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
 				else if(btnNewButton_11.getText().equals(" "))
 				{
 					btnNewButton_11.setText(btnNewButton_10.getText());
 					btnNewButton_10.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
 				else if(btnNewButton_14.getText().equals(" "))
 				{
 					btnNewButton_14.setText(btnNewButton_10.getText());
 					btnNewButton_10.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
+				validarGanar();
 			}
 		});
 		
@@ -413,22 +531,35 @@ public class Rompecabezas {
 				{
 					btnNewButton_7.setText(btnNewButton_11.getText());
 					btnNewButton_11.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
 				else if(btnNewButton_10.getText().equals(" "))
 				{
 					btnNewButton_10.setText(btnNewButton_11.getText());
 					btnNewButton_11.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
 				else if(btnNewButton_12.getText().equals(" "))
 				{
 					btnNewButton_12.setText(btnNewButton_11.getText());
 					btnNewButton_11.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
 				else if(btnNewButton_15.getText().equals(" "))
 				{
 					btnNewButton_15.setText(btnNewButton_11.getText());
 					btnNewButton_11.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
+				validarGanar();
 			}
 		});
 		
@@ -446,17 +577,27 @@ public class Rompecabezas {
 				{
 					btnNewButton_8.setText(btnNewButton_12.getText());
 					btnNewButton_12.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
 				else if(btnNewButton_11.getText().equals(" "))
 				{
 					btnNewButton_11.setText(btnNewButton_12.getText());
 					btnNewButton_12.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
 				else if(btnNewButton_16.getText().equals(" "))
 				{
 					btnNewButton_16.setText(btnNewButton_12.getText());
 					btnNewButton_12.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
+				validarGanar();
 			}
 		});
 		
@@ -474,12 +615,19 @@ public class Rompecabezas {
 				{
 					btnNewButton_9.setText(btnNewButton_13.getText());
 					btnNewButton_13.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
 				else if(btnNewButton_14.getText().equals(" "))
 				{
 					btnNewButton_14.setText(btnNewButton_13.getText());
 					btnNewButton_13.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
+				validarGanar();
 			}
 		});
 		
@@ -497,17 +645,27 @@ public class Rompecabezas {
 				{
 					btnNewButton_10.setText(btnNewButton_14.getText());
 					btnNewButton_14.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
 				else if(btnNewButton_13.getText().equals(" "))
 				{
 					btnNewButton_13.setText(btnNewButton_14.getText());
 					btnNewButton_14.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
 				else if(btnNewButton_15.getText().equals(" "))
 				{
 					btnNewButton_15.setText(btnNewButton_14.getText());
 					btnNewButton_14.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
+				validarGanar();
 			}
 		});
 		
@@ -525,17 +683,27 @@ public class Rompecabezas {
 				{
 					btnNewButton_11.setText(btnNewButton_15.getText());
 					btnNewButton_15.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
 				else if(btnNewButton_14.getText().equals(" "))
 				{
 					btnNewButton_14.setText(btnNewButton_15.getText());
 					btnNewButton_15.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
 				else if(btnNewButton_16.getText().equals(" "))
 				{
 					btnNewButton_16.setText(btnNewButton_15.getText());
 					btnNewButton_15.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
+				validarGanar();
 			}
 		});
 		
@@ -553,12 +721,19 @@ public class Rompecabezas {
 				{
 					btnNewButton_12.setText(btnNewButton_16.getText());
 					btnNewButton_16.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
 				else if(btnNewButton_15.getText().equals(" "))
 				{
 					btnNewButton_15.setText(btnNewButton_16.getText());
 					btnNewButton_16.setText(" ");
+					
+					movimientos++;
+					lblNewLabel_4.setText("Movimientos = " + movimientos);
 				}
+				validarGanar();
 			}
 		});
 		
@@ -573,14 +748,54 @@ public class Rompecabezas {
 		btnNewButton.setBorder(new LineBorder(null, 5, false));
 		btnNewButton.setIcon(skinCuadroMini);
 		btnNewButton.setFont(new Font("Bernard MT Condensed", Font.BOLD, 35));
+		btnNewButton.addActionListener(new ActionListener()
+				{
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						reseteo();
+					}
+			
+				});
 		
-		JLabel lblNewLabel_3 = new JLabel("");
+		JLabel lblNewLabel_3 = new JLabel("00:00:00");
 		panel_1.add(lblNewLabel_3, BorderLayout.CENTER);
-		lblNewLabel_3.setIcon(skinTableroHorizontal);
+		lblNewLabel_3.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblNewLabel_3.setFont(new Font("Bernard MT Condensed", Font.BOLD, 35));
+		lblNewLabel_3.setForeground(Color.WHITE);
+		lblNewLabel_3.setIcon(skinTableroTemporizador);
 		
-		JLabel lblNewLabel_4 = new JLabel("");
+		temporizador = new Timer(4, new ActionListener()
+				{
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						milisegundos++;
+						
+						if(milisegundos == 100)
+						{
+							segundos++;
+							milisegundos = 0;
+						}
+						if(segundos == 60)
+						{
+							minutos++;
+							segundos = 0;
+						}
+						
+						String tiempo = String.format("%02d:%02d:%02d", minutos, segundos, milisegundos);
+						lblNewLabel_3.setText(tiempo);
+					}
+			
+				});
+		
+		temporizador.start();
+		
+		//btnNewLabel_4 atributos
 		panel_1.add(lblNewLabel_4, BorderLayout.EAST);
-		lblNewLabel_4.setIcon(skinTableroHorizontal);
+		lblNewLabel_4.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblNewLabel_4.setIcon(skinTableroMovimientos);
+		lblNewLabel_4.setFont(new Font("Bernard MT Condensed", Font.BOLD, 25));
+		lblNewLabel_4.setForeground(Color.WHITE);
 
 		JLabel lblNewLabel = new JLabel("");
 		frame.getContentPane().add(lblNewLabel, BorderLayout.SOUTH);
@@ -603,5 +818,52 @@ public class Rompecabezas {
 		
 		panel.repaint();
 		panel.revalidate();
+	}
+	public void validarGanar()
+	{
+		if(btnNewButton_1.getText().equals("1") && btnNewButton_2.getText().equals("2") && btnNewButton_3.getText().equals("3") && btnNewButton_4.getText().equals("4")
+				&& btnNewButton_5.getText().equals("5") && btnNewButton_6.getText().equals("6") && btnNewButton_7.getText().equals("7") && btnNewButton_8.getText().equals("8")
+				&& btnNewButton_9.getText().equals("9") && btnNewButton_10.getText().equals("10") && btnNewButton_11.getText().equals("11") && btnNewButton_12.getText().equals("12")
+				&& btnNewButton_13.getText().equals("13") && btnNewButton_14.getText().equals("14") && btnNewButton_15.getText().equals("15") && btnNewButton_16.getText().equals(" "))
+		{
+			temporizador.stop();
+			JOptionPane.showMessageDialog(null, "!Bien hecho ganaste¡");			
+		}
+	}
+	public void reseteo()
+	{
+		Collections.shuffle(randNumeros);
+		
+		int[] nuevoArreglo = new int[randNumeros.size()];
+		
+		for(int i = 0; i <  randNumeros.size(); i++)
+		{
+			nuevoArreglo[i] = randNumeros.get(i);
+		}	
+		
+		btnNewButton_1.setText(" ");
+		btnNewButton_2.setText(Integer.toString(nuevoArreglo[0])); 
+		btnNewButton_3.setText(Integer.toString(nuevoArreglo[1]));
+		btnNewButton_4.setText(Integer.toString(nuevoArreglo[2]));
+		btnNewButton_5.setText(Integer.toString(nuevoArreglo[3]));
+		btnNewButton_6.setText(Integer.toString(nuevoArreglo[4]));
+		btnNewButton_7.setText(Integer.toString(nuevoArreglo[5]));
+		btnNewButton_8.setText(Integer.toString(nuevoArreglo[6]));
+		btnNewButton_9.setText(Integer.toString(nuevoArreglo[7]));
+		btnNewButton_10.setText(Integer.toString(nuevoArreglo[8]));
+		btnNewButton_11.setText(Integer.toString(nuevoArreglo[9]));
+		btnNewButton_12.setText(Integer.toString(nuevoArreglo[10]));
+		btnNewButton_13.setText(Integer.toString(nuevoArreglo[11]));
+		btnNewButton_14.setText(Integer.toString(nuevoArreglo[12]));
+		btnNewButton_15.setText(Integer.toString(nuevoArreglo[13]));
+		btnNewButton_16.setText(Integer.toString(nuevoArreglo[14]));
+		
+		movimientos = 0;
+		lblNewLabel_4.setText("Movimientos = " + movimientos);
+		
+		milisegundos = 0;
+		segundos = 0;
+		minutos = 0;
+		temporizador.start();
 	}
 }
