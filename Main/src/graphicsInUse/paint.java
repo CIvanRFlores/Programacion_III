@@ -4,22 +4,44 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import graphicsInUse.paint.ColocarFigura;
+import graphicsInUse.paint.Puntero;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Color;
+import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import javax.swing.JSlider;
 import javax.swing.SwingConstants;
 
 import java.awt.Dimension;
 
-public class paint {
+public class paint implements MouseListener, MouseMotionListener{
 
 	private JFrame frame;
+	
+	public  JPanel lienzo;
 	
 	public ImageIcon pincel = new ImageIcon("pincel.png");
 	public ImageIcon pincel_redux = new ImageIcon(pincel.getImage().getScaledInstance(40, 40, 10));
@@ -41,6 +63,18 @@ public class paint {
 	
 	public ImageIcon limpiar = new ImageIcon("limpiar.png");
 	public ImageIcon limpiar_redux = new ImageIcon(limpiar.getImage().getScaledInstance(60, 60, 10));
+
+	ArrayList<Puntero> coords = new ArrayList<Puntero>();
+	
+	List<List<Puntero>> listaCoords = new ArrayList<>();
+	
+	ArrayList<ColocarFigura> figuritas = new ArrayList<ColocarFigura>();
+	
+	List<List<ColocarFigura>> listaFiguras = new ArrayList<>();
+		
+	Color seleccionColor = Color.BLACK;
+	
+	int seleccionGrosor = 3, tool = 1, coordX, coordY;
 	
 	/**
 	 * Launch the application.
@@ -98,6 +132,14 @@ public class paint {
 		brocha.setFont(new Font("Arial", Font.BOLD, 20));
 		brocha.setBorder(new LineBorder(Color.LIGHT_GRAY, 4, false));
 		brocha.setIcon(pincel_redux);
+		brocha.addActionListener(new ActionListener()
+				{
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						tool = 1;
+					}
+				});
 		utiles.add(brocha);
 		
 		JButton borrador = new JButton("Borrador");
@@ -108,11 +150,26 @@ public class paint {
 		borrador.setFont(new Font("Arial", Font.BOLD, 20));
 		borrador.setBorder(new LineBorder(Color.LIGHT_GRAY, 4, false));
 		borrador.setIcon(borrador_redux);
+		borrador.addActionListener(new ActionListener()
+				{
+					@Override
+					public void actionPerformed(ActionEvent e) {
+					tool = 1;
+					seleccionColor = new Color(255, 255, 255);
+					}
+				});
 		utiles.add(borrador);
 		
-		JSlider slider = new JSlider();
+		JSlider slider  =new JSlider(1, 50, 3);
 		slider.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
 		slider.setBackground(new Color(82, 82, 82));
+		slider.addChangeListener(new ChangeListener()
+				{
+					@Override
+					public void stateChanged(ChangeEvent e) {
+					seleccionGrosor = slider.getValue();
+					}
+				});
 		utiles.add(slider);
 		
 		JPanel figuras = new JPanel();
@@ -128,6 +185,13 @@ public class paint {
 		rectangulo.setFocusPainted(false);
 		rectangulo.setBorder(new LineBorder(Color.LIGHT_GRAY, 4, false));
 		rectangulo.setIcon(rectangulo_redux);
+		rectangulo.addActionListener(new ActionListener()
+				{
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						tool = 2;
+					}
+				});
 		figuras.add(rectangulo);
 		
 		JButton circulo = new JButton("");
@@ -136,6 +200,13 @@ public class paint {
 		circulo.setFocusPainted(false);
 		circulo.setBorder(new LineBorder(Color.LIGHT_GRAY, 4, false));
 		circulo.setIcon(circulo_redux);
+		circulo.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				tool = 3;
+			}
+		});
 		figuras.add(circulo);
 		
 		JButton triangulo = new JButton("");
@@ -144,6 +215,13 @@ public class paint {
 		triangulo.setBorder(new LineBorder(Color.LIGHT_GRAY, 4, false));
 		triangulo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		triangulo.setIcon(triangulo_redux);
+		triangulo.addActionListener(new ActionListener()
+				{
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						tool = 4;
+					}			
+				});
 		figuras.add(triangulo);
 		
 		JButton linea = new JButton("");
@@ -152,6 +230,13 @@ public class paint {
 		linea.setFocusPainted(false);
 		linea.setBorder(new LineBorder(Color.LIGHT_GRAY, 4, false));
 		linea.setIcon(linea_redux);
+		linea.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				tool = 5 ;
+			}			
+		});
 		figuras.add(linea);
 		
 		JPanel borrado = new JPanel();
@@ -167,10 +252,28 @@ public class paint {
 		limpiar.setBorder(new LineBorder(Color.LIGHT_GRAY, 4, false));
 		limpiar.setFont(new Font("Arial", Font.BOLD, 20));
 		limpiar.setIcon(limpiar_redux);
+		limpiar.addActionListener(new ActionListener()
+				{
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						coords.clear();
+						listaCoords.clear();
+						
+						figuritas.clear();
+						listaFiguras.clear();
+						
+						lienzo.repaint();
+					}
+			
+				});
 		borrado.add(limpiar, BorderLayout.CENTER);
 		
-		JPanel lienzo = new JPanel();
+		//LIENZO DONDE SE DIBUJA
+		lienzo = new pintarPanel();
 		lienzo.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+		lienzo.addMouseListener(this);
+		lienzo.addMouseMotionListener(this);
 		frame.getContentPane().add(lienzo, BorderLayout.CENTER);
 		
 		JPanel colores = new JPanel();
@@ -185,6 +288,13 @@ public class paint {
 		c_Blanco.setOpaque(true);
 		c_Blanco.setBorder(new LineBorder(Color.LIGHT_GRAY, 6, false));
 		c_Blanco.setFocusPainted(false);
+		c_Blanco.addActionListener(new ActionListener()
+				{
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						seleccionColor = new Color(255, 255, 255);
+					}
+				});
 		colores.add(c_Blanco);
 		
 		JButton c_Negro = new JButton("                            ");
@@ -193,6 +303,13 @@ public class paint {
 		c_Negro.setOpaque(true);
 		c_Negro.setBorder(new LineBorder(Color.LIGHT_GRAY, 6, false));
 		c_Negro.setFocusPainted(false);
+		c_Negro.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				seleccionColor = new Color(0, 0, 0);
+			}
+		});
 		colores.add(c_Negro);
 		
 		JButton c_Gris = new JButton("");
@@ -200,6 +317,14 @@ public class paint {
 		c_Gris.setBackground(new Color(128, 128, 128));
 		c_Gris.setOpaque(true);
 		c_Gris.setBorder(new LineBorder(Color.LIGHT_GRAY, 6, false));
+		c_Gris.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				seleccionColor = new Color(128, 128, 128);
+			}
+	
+		});
 		colores.add(c_Gris);
 		
 		JButton c_Azul = new JButton("");
@@ -207,6 +332,14 @@ public class paint {
 		c_Azul.setBackground(new Color(0, 128, 255));
 		c_Azul.setOpaque(true);
 		c_Azul.setBorder(new LineBorder(Color.LIGHT_GRAY, 6, false));
+		c_Azul.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				seleccionColor = new Color(0, 128, 255);
+			}
+	
+		});
 		colores.add(c_Azul);
 		
 		JButton c_Rojo = new JButton("");
@@ -214,6 +347,14 @@ public class paint {
 		c_Rojo.setBackground(new Color(128, 0, 0));
 		c_Rojo.setOpaque(true);
 		c_Rojo.setBorder(new LineBorder(Color.LIGHT_GRAY, 6, false));
+		c_Rojo.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				seleccionColor = new Color(128, 0, 0);
+			}
+	
+		});
 		colores.add(c_Rojo);
 		
 		JButton c_Verde = new JButton("");
@@ -221,6 +362,14 @@ public class paint {
 		c_Verde.setBackground(new Color(0, 128, 0));
 		c_Verde.setOpaque(true);
 		c_Verde.setBorder(new LineBorder(Color.LIGHT_GRAY, 6, false));
+		c_Verde.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				seleccionColor = new Color(0, 128, 0);
+			}
+	
+		});
 		colores.add(c_Verde);
 		
 		JButton c_Naranja = new JButton("");
@@ -228,6 +377,14 @@ public class paint {
 		c_Naranja.setBackground(new Color(255, 128, 0));
 		c_Naranja.setOpaque(true);
 		c_Naranja.setBorder(new LineBorder(Color.LIGHT_GRAY, 6, false));
+		c_Naranja.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				seleccionColor = new Color(255, 128, 0);
+			}
+	
+		});
 		colores.add(c_Naranja);
 		
 		JButton c_Morado = new JButton("");
@@ -235,7 +392,247 @@ public class paint {
 		c_Morado.setBackground(new Color(128, 0, 128));
 		c_Morado.setOpaque(true);
 		c_Morado.setBorder(new LineBorder(Color.LIGHT_GRAY, 6, false));
+		c_Morado.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				seleccionColor = new Color(128, 0, 128);
+			}
+	
+		});
 		colores.add(c_Morado);
 	}
 
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if(tool == 2)
+		{
+			figuritas.add(new ColocarFigura(e.getX() - 40, e.getY() - 20, 80, 40, seleccionGrosor, seleccionColor, tool));
+		}
+		if(tool == 3)
+		{
+			figuritas.add(new ColocarFigura(e.getX() - 40, e.getY() - 40, 80, 80, seleccionGrosor, seleccionColor, tool));
+		}
+		if(tool == 5)
+		{
+			figuritas.add(new ColocarFigura(e.getX(), e.getY(), 150, 150, seleccionGrosor, seleccionColor, tool));
+		}
+		lienzo.repaint();
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		if(tool == 5)
+		{
+			figuritas.add(new ColocarFigura(e.getX(), e.getY(), e.getX(), e.getY(), seleccionGrosor, seleccionColor, tool));
+		}
+		coordX = e.getX();
+		coordY = e.getY();
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+		if(tool == 1)
+		{
+			ArrayList listaAux = (ArrayList)coords.clone();
+			
+			listaCoords.add(listaAux);
+						
+			coords.clear();			
+		}
+		if(tool == 2 || tool == 3)
+		{
+			ArrayList figurasAux = (ArrayList)figuritas.clone();
+			
+			listaFiguras.add(figurasAux);
+		}
+		if(tool == 5)
+		{
+			figuritas.add(new ColocarFigura(e.getX(), e.getY(), coordX, coordY, seleccionGrosor, seleccionColor, tool));
+		}
+		lienzo.repaint();
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+		if(tool == 1)
+		{
+			
+			coords.add(new Puntero(e.getX(), e.getY(), seleccionGrosor, seleccionColor));
+		}
+		lienzo.repaint();
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		lienzo.repaint();
+	}
+
+	//CLASE PARA PINTAR
+	public  class pintarPanel extends JPanel
+	{
+		public pintarPanel()
+		{
+			this.setBackground(Color.white);
+		}
+		
+		public void paint (Graphics g)
+		{
+			super.paint(g);
+			
+			Graphics2D g2 = (Graphics2D) g;
+						
+			g2.setStroke(new BasicStroke(3));
+			
+			//VUELVE A DIBUJAR TODAS LAS LINEAS ALMACENADAS
+			for(Iterator<List<Puntero>> iterator = listaCoords.iterator(); iterator.hasNext();)
+			{
+				List<Puntero> pintar = (List<Puntero>) iterator.next();
+				
+				System.out.println(listaCoords.size());
+				
+				//DIBUJA LINEAS EN TIEMPO REAL
+				if(pintar.size() > 1)
+				{	
+					for(int i = 1 ; i < pintar.size() ; i++)
+					{	
+						Puntero p1 = pintar.get(i - 1);
+						
+						Puntero p2 = pintar.get(i);
+						
+						g2.setColor(p1.seleccionColor);
+						
+						g2.setStroke(new BasicStroke(p1.seleccionGrosor));
+						
+						g2.drawLine(p1.x, p1.y, p2.x, p2.y);
+					}
+				}
+			}
+			for(Iterator<List<ColocarFigura>> iterator = listaFiguras.iterator(); iterator.hasNext();)
+			{
+				List<ColocarFigura> colocar = (List<ColocarFigura>) iterator.next();
+				
+				System.out.println(listaFiguras.size());
+				
+				if(colocar.size() > 1)
+				{
+					for(int i = 1 ; i < colocar.size() ; i++)
+					{
+						ColocarFigura f = colocar.get(i - 1);
+						
+						g2.setColor(seleccionColor);
+						
+						g2.setStroke(new BasicStroke(seleccionGrosor));
+						
+						if(f.t == 2)
+						{
+							g2.drawRect(f.x, f.y, f.ancho, f.largo);						
+						}
+						else if(f.t == 3)
+						{
+							g2.drawArc(f.x, f.y, f.ancho, f.largo, 0, 360);
+						}
+						else if(f.t == 5)
+						{
+							g2.drawLine(f.x, f.y, f.ancho, f.largo);
+							g2.drawLine(f.x, f.y, f.ancho, f.largo);
+						}
+					}
+				}
+			}
+				
+			//DIBUJA LINEAS EN TIEMPO REAL
+			if(coords.size() > 1)
+			{
+				for(int i = 1 ; i < coords.size() ; i++)
+				{		
+					Puntero p1 = coords.get(i - 1);
+					
+					Puntero p2 = coords.get(i);
+					
+					g2.setColor(p1.seleccionColor);
+					
+					g2.setStroke(new BasicStroke(p1.seleccionGrosor));
+
+					g2.drawLine(p1.x, p1.y, p2.x, p2.y);						
+				}
+			}
+			if(figuritas.size() > 0)
+			{
+				for(int i = 0 ; i < figuritas.size() ; i++)
+				{
+					ColocarFigura f = figuritas.get(i);
+					
+					g2.setColor(seleccionColor);
+					
+					g2.setStroke(new BasicStroke(seleccionGrosor));
+					
+					if(f.t == 2)
+					{
+						g2.drawRect(f.x, f.y, f.ancho, f.largo);						
+					}
+					else if(f.t == 3)
+					{
+						g2.drawArc(f.x, f.y, f.ancho, f.largo, 0, 360);
+					}
+					else if(f.t == 5)
+					{
+						g2.drawLine(f.x, f.y, f.ancho, f.largo);
+						g2.drawLine(f.x, f.y, f.ancho, f.largo);
+					}
+				}
+			}
+		}
+	}
+
+	//CLASE PARA CAMBIAR DE COLOR Y GROSOR
+	public class Puntero
+	{
+		int x, y, seleccionGrosor;
+		Color seleccionColor;
+		
+		public  Puntero(int x, int y, int seleccionGrosor, Color seleccionColor)
+		{
+			this.x = x;
+			this.y = y;
+			this.seleccionGrosor = seleccionGrosor;
+			this.seleccionColor = seleccionColor;
+		}
+	}
+	
+	//CLASE PARA CREAR FIGURAS
+	public class ColocarFigura 
+	{
+		int x, y, ancho, largo, seleccionGrosor, t;
+		Color seleccionColor;
+		
+		public  ColocarFigura(int x, int y, int ancho, int largo, int seleccionGrosor, Color seleccionColor, int t)
+		{
+			this.x = x;
+			this.y = y;
+			this.ancho = ancho;
+			this.largo = largo;
+			this.seleccionGrosor = seleccionGrosor;
+			this.seleccionColor = seleccionColor;
+			this.t = t;
+		}
+	}
+	
 }
