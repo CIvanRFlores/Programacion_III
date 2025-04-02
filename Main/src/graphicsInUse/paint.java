@@ -2,6 +2,8 @@ package graphicsInUse;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -10,6 +12,8 @@ import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -36,6 +40,7 @@ import javax.swing.JSlider;
 import javax.swing.SwingConstants;
 
 import java.awt.Dimension;
+import javax.swing.JCheckBox;
 
 public class paint implements MouseListener, MouseMotionListener{
 
@@ -75,6 +80,8 @@ public class paint implements MouseListener, MouseMotionListener{
 	Color seleccionColor = Color.BLACK;
 	
 	int seleccionGrosor = 3, tool = 1, coordX, coordY;
+	
+	boolean relleno = false;
 	
 	/**
 	 * Launch the application.
@@ -137,6 +144,10 @@ public class paint implements MouseListener, MouseMotionListener{
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
+						if(tool == 6)
+						{
+							seleccionColor = Color.BLACK;
+						}
 						tool = 1;
 					}
 				});
@@ -154,7 +165,7 @@ public class paint implements MouseListener, MouseMotionListener{
 				{
 					@Override
 					public void actionPerformed(ActionEvent e) {
-					tool = 1;
+					tool = 6;
 					seleccionColor = new Color(255, 255, 255);
 					}
 				});
@@ -269,6 +280,30 @@ public class paint implements MouseListener, MouseMotionListener{
 				});
 		borrado.add(limpiar, BorderLayout.CENTER);
 		
+		JCheckBox rellenoFigura = new JCheckBox("Rellenar figuras");
+		rellenoFigura.setFocusPainted(false);
+		rellenoFigura.setBorderPaintedFlat(true);
+		rellenoFigura.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		rellenoFigura.setBackground(new Color(82, 82, 82));
+		rellenoFigura.setFont(new Font("Tahoma", Font.BOLD, 19));
+		rellenoFigura.setForeground(new Color(255, 255, 255));
+		rellenoFigura.setBorder(new LineBorder(Color.LIGHT_GRAY, 4, false));
+		rellenoFigura.addItemListener(new ItemListener()
+				{
+					@Override
+					public void itemStateChanged(ItemEvent e) {
+						if(rellenoFigura.isSelected())
+						{
+							relleno = true;
+						}
+						else
+						{
+							relleno = false;
+						}
+					}
+				});
+		borrado.add(rellenoFigura, BorderLayout.NORTH);
+		
 		//LIENZO DONDE SE DIBUJA
 		lienzo = new pintarPanel();
 		lienzo.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
@@ -307,7 +342,15 @@ public class paint implements MouseListener, MouseMotionListener{
 		{
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				seleccionColor = new Color(0, 0, 0);
+				
+				if(tool != 6)
+				{
+					seleccionColor = new Color(0, 0, 0);					
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null, "No es posible cambiar el color del borrador");
+				}
 			}
 		});
 		colores.add(c_Negro);
@@ -321,7 +364,14 @@ public class paint implements MouseListener, MouseMotionListener{
 		{
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				seleccionColor = new Color(128, 128, 128);
+				if(tool != 6)
+				{
+					seleccionColor = new Color(128, 128, 128);
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null, "No es posible cambiar el color del borrador");
+				}
 			}
 	
 		});
@@ -336,7 +386,14 @@ public class paint implements MouseListener, MouseMotionListener{
 		{
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				seleccionColor = new Color(0, 128, 255);
+				if(tool != 6)
+				{
+					seleccionColor = new Color(0, 128, 255);
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null, "No es posible cambiar el color del borrador");
+				}
 			}
 	
 		});
@@ -351,7 +408,14 @@ public class paint implements MouseListener, MouseMotionListener{
 		{
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				seleccionColor = new Color(128, 0, 0);
+				if(tool != 6)
+				{
+					seleccionColor = new Color(128, 0, 0);
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null, "No es posible cambiar el color del borrador");
+				}
 			}
 	
 		});
@@ -366,7 +430,14 @@ public class paint implements MouseListener, MouseMotionListener{
 		{
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				seleccionColor = new Color(0, 128, 0);
+				if(tool != 6)
+				{
+					seleccionColor = new Color(0, 128, 0);
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null, "No es posible cambiar el color del borrador");
+				}
 			}
 	
 		});
@@ -381,7 +452,14 @@ public class paint implements MouseListener, MouseMotionListener{
 		{
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				seleccionColor = new Color(255, 128, 0);
+				if(tool != 6)
+				{
+					seleccionColor = new Color(255, 128, 0);
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null, "No es posible cambiar el color del borrador");
+				}
 			}
 	
 		});
@@ -396,7 +474,14 @@ public class paint implements MouseListener, MouseMotionListener{
 		{
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				seleccionColor = new Color(128, 0, 128);
+				if(tool != 6)
+				{
+					seleccionColor = new Color(128, 0, 128);
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null, "No es posible cambiar el color del borrador");
+				}
 			}
 	
 		});
@@ -407,15 +492,15 @@ public class paint implements MouseListener, MouseMotionListener{
 	public void mouseClicked(MouseEvent e) {
 		if(tool == 2)
 		{
-			figuritas.add(new ColocarFigura(e.getX() - 40, e.getY() - 20, 80, 40, seleccionGrosor, seleccionColor, tool));
+			figuritas.add(new ColocarFigura(e.getX() - (seleccionGrosor * 4), e.getY() - (seleccionGrosor * 4) / 2, (seleccionGrosor * 4) * 2, (seleccionGrosor * 4), seleccionGrosor, seleccionColor, tool, relleno));
 		}
 		if(tool == 3)
 		{
-			figuritas.add(new ColocarFigura(e.getX() - 40, e.getY() - 40, 80, 80, seleccionGrosor, seleccionColor, tool));
+			figuritas.add(new ColocarFigura(e.getX() - (seleccionGrosor * 4), e.getY() - (seleccionGrosor * 4), (seleccionGrosor * 4) * 2, (seleccionGrosor * 4) * 2, seleccionGrosor, seleccionColor, tool, relleno));
 		}
 		if(tool == 5)
 		{
-			figuritas.add(new ColocarFigura(e.getX(), e.getY(), 150, 150, seleccionGrosor, seleccionColor, tool));
+			figuritas.add(new ColocarFigura(e.getX(), e.getY(), e.getX(), e.getY(),  seleccionGrosor, seleccionColor, tool, false));
 		}
 		lienzo.repaint();
 	}
@@ -425,7 +510,7 @@ public class paint implements MouseListener, MouseMotionListener{
 		// TODO Auto-generated method stub
 		if(tool == 5)
 		{
-			figuritas.add(new ColocarFigura(e.getX(), e.getY(), e.getX(), e.getY(), seleccionGrosor, seleccionColor, tool));
+			figuritas.add(new ColocarFigura(e.getX(), e.getY(), e.getX(), e.getY(), seleccionGrosor, seleccionColor, tool, false));
 		}
 		coordX = e.getX();
 		coordY = e.getY();
@@ -435,7 +520,7 @@ public class paint implements MouseListener, MouseMotionListener{
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
-		if(tool == 1)
+		if(tool == 1 || tool == 6)
 		{
 			ArrayList listaAux = (ArrayList)coords.clone();
 			
@@ -451,7 +536,7 @@ public class paint implements MouseListener, MouseMotionListener{
 		}
 		if(tool == 5)
 		{
-			figuritas.add(new ColocarFigura(e.getX(), e.getY(), coordX, coordY, seleccionGrosor, seleccionColor, tool));
+			figuritas.add(new ColocarFigura(e.getX(), e.getY(), coordX, coordY, seleccionGrosor, seleccionColor, tool, false));
 		}
 		lienzo.repaint();
 	}
@@ -472,7 +557,7 @@ public class paint implements MouseListener, MouseMotionListener{
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
-		if(tool == 1)
+		if(tool == 1 || tool == 6)
 		{
 			
 			coords.add(new Puntero(e.getX(), e.getY(), seleccionGrosor, seleccionColor));
@@ -525,6 +610,8 @@ public class paint implements MouseListener, MouseMotionListener{
 					}
 				}
 			}
+			
+			//VUELVE A DIBUJAR TODAS LAS FIGURAS ALMACENADAS
 			for(Iterator<List<ColocarFigura>> iterator = listaFiguras.iterator(); iterator.hasNext();)
 			{
 				List<ColocarFigura> colocar = (List<ColocarFigura>) iterator.next();
@@ -537,17 +624,25 @@ public class paint implements MouseListener, MouseMotionListener{
 					{
 						ColocarFigura f = colocar.get(i - 1);
 						
-						g2.setColor(seleccionColor);
+						g2.setColor(f.seleccionColor);
+						g2.setStroke(new BasicStroke(3));
 						
-						g2.setStroke(new BasicStroke(seleccionGrosor));
-						
-						if(f.t == 2)
+						//dIBUJA FIGURAS EN TIEMPO REAL
+						if(f.t == 2 && f.relleno == false)
 						{
 							g2.drawRect(f.x, f.y, f.ancho, f.largo);						
 						}
-						else if(f.t == 3)
+						else if(f.t == 2 && f.relleno == true)
+						{
+							g2.fillRect(f.x, f.y, f.ancho, f.largo);						
+						}
+						else if(f.t == 3 && f.relleno == false)
 						{
 							g2.drawArc(f.x, f.y, f.ancho, f.largo, 0, 360);
+						}
+						else if(f.t == 3 && f.relleno == true)
+						{
+							g2.fillArc(f.x, f.y, f.ancho, f.largo, 0, 360);
 						}
 						else if(f.t == 5)
 						{
@@ -570,27 +665,36 @@ public class paint implements MouseListener, MouseMotionListener{
 					g2.setColor(p1.seleccionColor);
 					
 					g2.setStroke(new BasicStroke(p1.seleccionGrosor));
-
+					
 					g2.drawLine(p1.x, p1.y, p2.x, p2.y);						
 				}
 			}
+			
+			//DIBUJA FIGURAS EN TIEMPO REAL
 			if(figuritas.size() > 0)
 			{
 				for(int i = 0 ; i < figuritas.size() ; i++)
 				{
 					ColocarFigura f = figuritas.get(i);
 					
-					g2.setColor(seleccionColor);
+					g2.setColor(f.seleccionColor);
+					g2.setStroke(new BasicStroke(3));
 					
-					g2.setStroke(new BasicStroke(seleccionGrosor));
-					
-					if(f.t == 2)
+					if(f.t == 2 && f.relleno == false)
 					{
 						g2.drawRect(f.x, f.y, f.ancho, f.largo);						
 					}
-					else if(f.t == 3)
+					else if(f.t == 2 && f.relleno == true)
+					{
+						g2.fillRect(f.x, f.y, f.ancho, f.largo);						
+					}
+					else if(f.t == 3 && f.relleno == false)
 					{
 						g2.drawArc(f.x, f.y, f.ancho, f.largo, 0, 360);
+					}
+					else if(f.t == 3 && f.relleno == true)
+					{
+						g2.fillArc(f.x, f.y, f.ancho, f.largo, 0, 360);
 					}
 					else if(f.t == 5)
 					{
@@ -622,8 +726,9 @@ public class paint implements MouseListener, MouseMotionListener{
 	{
 		int x, y, ancho, largo, seleccionGrosor, t;
 		Color seleccionColor;
+		boolean relleno;
 		
-		public  ColocarFigura(int x, int y, int ancho, int largo, int seleccionGrosor, Color seleccionColor, int t)
+		public  ColocarFigura(int x, int y, int ancho, int largo, int seleccionGrosor, Color seleccionColor, int t, boolean relleno)
 		{
 			this.x = x;
 			this.y = y;
@@ -632,6 +737,7 @@ public class paint implements MouseListener, MouseMotionListener{
 			this.seleccionGrosor = seleccionGrosor;
 			this.seleccionColor = seleccionColor;
 			this.t = t;
+			this.relleno = relleno;
 		}
 	}
 	
