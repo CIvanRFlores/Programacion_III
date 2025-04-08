@@ -28,7 +28,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import graphicsInUse.paint.ColocarFigura;
+//import graphicsInUse.paint.ColocarFigura;
 import graphicsInUse.paint.Puntero;
 
 import javax.swing.ImageIcon;
@@ -73,15 +73,17 @@ public class paint implements MouseListener, MouseMotionListener{
 	
 	List<List<Puntero>> listaCoords = new ArrayList<>();
 	
-	ArrayList<ColocarFigura> figuritas = new ArrayList<ColocarFigura>();
-	
-	List<List<ColocarFigura>> listaFiguras = new ArrayList<>();
+//	ArrayList<ColocarFigura> figuritas = new ArrayList<ColocarFigura>();
+//	
+//	List<List<ColocarFigura>> listaFiguras = new ArrayList<>();
 		
 	Color seleccionColor = Color.BLACK;
 	
 	int seleccionGrosor = 3, tool = 1, coordX, coordY;
 	
 	boolean relleno = false;
+	
+	Puntero p2;
 	
 	/**
 	 * Launch the application.
@@ -270,9 +272,6 @@ public class paint implements MouseListener, MouseMotionListener{
 					public void actionPerformed(ActionEvent e) {
 						coords.clear();
 						listaCoords.clear();
-						
-						figuritas.clear();
-						listaFiguras.clear();
 						
 						lienzo.repaint();
 					}
@@ -492,15 +491,15 @@ public class paint implements MouseListener, MouseMotionListener{
 	public void mouseClicked(MouseEvent e) {
 		if(tool == 2)
 		{
-			figuritas.add(new ColocarFigura(e.getX() - (seleccionGrosor * 4), e.getY() - (seleccionGrosor * 4) / 2, (seleccionGrosor * 4) * 2, (seleccionGrosor * 4), seleccionGrosor, seleccionColor, tool, relleno));
+			coords.add(new Puntero(e.getX() - (seleccionGrosor * 4), e.getY() - (seleccionGrosor * 4) / 2, (seleccionGrosor * 4) * 2, (seleccionGrosor * 4), seleccionGrosor, seleccionColor, tool, relleno));
 		}
 		if(tool == 3)
 		{
-			figuritas.add(new ColocarFigura(e.getX() - (seleccionGrosor * 4), e.getY() - (seleccionGrosor * 4), (seleccionGrosor * 4) * 2, (seleccionGrosor * 4) * 2, seleccionGrosor, seleccionColor, tool, relleno));
+			coords.add(new Puntero(e.getX() - (seleccionGrosor * 4), e.getY() - (seleccionGrosor * 4), (seleccionGrosor * 4) * 2, (seleccionGrosor * 4) * 2, seleccionGrosor, seleccionColor, tool, relleno));
 		}
 		if(tool == 5)
 		{
-			figuritas.add(new ColocarFigura(e.getX(), e.getY(), e.getX(), e.getY(),  seleccionGrosor, seleccionColor, tool, false));
+			coords.add(new Puntero(e.getX(), e.getY(), e.getX(), e.getY(),  seleccionGrosor, seleccionColor, tool, false));
 		}
 		lienzo.repaint();
 	}
@@ -510,7 +509,7 @@ public class paint implements MouseListener, MouseMotionListener{
 		// TODO Auto-generated method stub
 		if(tool == 5)
 		{
-			figuritas.add(new ColocarFigura(e.getX(), e.getY(), e.getX(), e.getY(), seleccionGrosor, seleccionColor, tool, false));
+			coords.add(new Puntero(e.getX(), e.getY(), e.getX(), e.getY(), seleccionGrosor, seleccionColor, tool, false));
 		}
 		coordX = e.getX();
 		coordY = e.getY();
@@ -520,24 +519,17 @@ public class paint implements MouseListener, MouseMotionListener{
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
-		if(tool == 1 || tool == 6)
-		{
-			ArrayList listaAux = (ArrayList)coords.clone();
-			
-			listaCoords.add(listaAux);
-						
-			coords.clear();			
-		}
-		if(tool == 2 || tool == 3)
-		{
-			ArrayList figurasAux = (ArrayList)figuritas.clone();
-			
-			listaFiguras.add(figurasAux);
-		}
 		if(tool == 5)
 		{
-			figuritas.add(new ColocarFigura(e.getX(), e.getY(), coordX, coordY, seleccionGrosor, seleccionColor, tool, false));
+			coords.add(new Puntero(e.getX(), e.getY(), coordX, coordY, seleccionGrosor, seleccionColor, tool, false));
 		}
+
+		ArrayList listaAux = (ArrayList)coords.clone();
+		
+		listaCoords.add(listaAux);
+		
+		coords.clear();			
+		
 		lienzo.repaint();
 	}
 
@@ -560,7 +552,7 @@ public class paint implements MouseListener, MouseMotionListener{
 		if(tool == 1 || tool == 6)
 		{
 			
-			coords.add(new Puntero(e.getX(), e.getY(), seleccionGrosor, seleccionColor));
+			coords.add(new Puntero(e.getX(), e.getY(), 0, 0, seleccionGrosor, seleccionColor, tool, false));
 		}
 		lienzo.repaint();
 	}
@@ -600,135 +592,178 @@ public class paint implements MouseListener, MouseMotionListener{
 					{	
 						Puntero p1 = pintar.get(i - 1);
 						
-						Puntero p2 = pintar.get(i);
+						if(p1.t == 1 || p1.t == 6)
+						{
+							p2 = pintar.get(i);							
+						}
+						
 						
 						g2.setColor(p1.seleccionColor);
 						
-						g2.setStroke(new BasicStroke(p1.seleccionGrosor));
 						
-						g2.drawLine(p1.x, p1.y, p2.x, p2.y);
+						if(p1.t == 1|| p1.t == 6)
+						{
+							g2.setStroke(new BasicStroke(p1.seleccionGrosor));
+							
+							g2.drawLine(p1.x, p1.y, p2.x, p2.y);
+						}
+						else if(p1.t == 2 && p1.relleno == false)
+						{
+							g2.drawRect(p1.x, p1.y, p1.ancho, p1.largo);
+						}
+						else if(p1.t == 2 && p1.relleno == true)
+						{
+							g2.fillRect(p1.x, p1.y, p1.ancho, p1.largo);
+						}
+						else if(p1.t == 3 && p1.relleno == false)
+						{
+							g2.drawArc(p1.x, p1.y, p1.ancho, p1.largo, 0, 360);
+						}
+						else if(p1.t == 3 && p1.relleno == true)
+						{
+							g2.fillArc(p1.x, p1.y, p1.ancho, p1.largo, 0, 360);
+						}
+						else if(p1.t == 5)
+						{
+							g2.drawLine(p1.x, p1.y, p1.ancho, p1.largo);
+							g2.drawLine(p1.x, p1.y, p1.ancho, p1.largo);
+						}
+						
 					}
 				}
 			}
 			
 			//VUELVE A DIBUJAR TODAS LAS FIGURAS ALMACENADAS
-			for(Iterator<List<ColocarFigura>> iterator = listaFiguras.iterator(); iterator.hasNext();)
-			{
-				List<ColocarFigura> colocar = (List<ColocarFigura>) iterator.next();
-				
-				System.out.println(listaFiguras.size());
-				
-				if(colocar.size() > 1)
-				{
-					for(int i = 1 ; i < colocar.size() ; i++)
-					{
-						ColocarFigura f = colocar.get(i - 1);
-						
-						g2.setColor(f.seleccionColor);
-						g2.setStroke(new BasicStroke(3));
-						
-						//dIBUJA FIGURAS EN TIEMPO REAL
-						if(f.t == 2 && f.relleno == false)
-						{
-							g2.drawRect(f.x, f.y, f.ancho, f.largo);						
-						}
-						else if(f.t == 2 && f.relleno == true)
-						{
-							g2.fillRect(f.x, f.y, f.ancho, f.largo);						
-						}
-						else if(f.t == 3 && f.relleno == false)
-						{
-							g2.drawArc(f.x, f.y, f.ancho, f.largo, 0, 360);
-						}
-						else if(f.t == 3 && f.relleno == true)
-						{
-							g2.fillArc(f.x, f.y, f.ancho, f.largo, 0, 360);
-						}
-						else if(f.t == 5)
-						{
-							g2.drawLine(f.x, f.y, f.ancho, f.largo);
-							g2.drawLine(f.x, f.y, f.ancho, f.largo);
-						}
-					}
-				}
-			}
+//			for(Iterator<List<ColocarFigura>> iterator = listaFiguras.iterator(); iterator.hasNext();)
+//			{
+//				List<ColocarFigura> colocar = (List<ColocarFigura>) iterator.next();
+//				
+//				System.out.println(listaFiguras.size());
+//				
+//				if(colocar.size() > 1)
+//				{
+//					for(int i = 1 ; i < colocar.size() ; i++)
+//					{
+//						ColocarFigura f = colocar.get(i - 1);
+//						
+//						g2.setColor(f.seleccionColor);
+//						g2.setStroke(new BasicStroke(3));
+//						
+//						//dIBUJA FIGURAS EN TIEMPO REAL
+//						if(f.t == 2 && f.relleno == false)
+//						{
+//							g2.drawRect(f.x, f.y, f.ancho, f.largo);						
+//						}
+//						else if(f.t == 2 && f.relleno == true)
+//						{
+//							g2.fillRect(f.x, f.y, f.ancho, f.largo);						
+//						}
+//						else if(f.t == 3 && f.relleno == false)
+//						{
+//							g2.drawArc(f.x, f.y, f.ancho, f.largo, 0, 360);
+//						}
+//						else if(f.t == 3 && f.relleno == true)
+//						{
+//							g2.fillArc(f.x, f.y, f.ancho, f.largo, 0, 360);
+//						}
+//						else if(f.t == 5)
+//						{
+//							g2.drawLine(f.x, f.y, f.ancho, f.largo);
+//							g2.drawLine(f.x, f.y, f.ancho, f.largo);
+//						}
+//					}
+//				}
+//			}
 				
 			//DIBUJA LINEAS EN TIEMPO REAL
 			if(coords.size() > 1)
 			{
 				for(int i = 1 ; i < coords.size() ; i++)
-				{		
+				{	
 					Puntero p1 = coords.get(i - 1);
 					
-					Puntero p2 = coords.get(i);
+					if(p1.t == 1 || p1.t == 6)
+					{
+						p2 = coords.get(i);						
+					}
 					
 					g2.setColor(p1.seleccionColor);
 					
-					g2.setStroke(new BasicStroke(p1.seleccionGrosor));
 					
-					g2.drawLine(p1.x, p1.y, p2.x, p2.y);						
+					if(p1.t == 1|| p1.t == 6)
+					{
+						g2.setStroke(new BasicStroke(p1.seleccionGrosor));
+
+						g2.drawLine(p1.x, p1.y, p2.x, p2.y);							
+					}
+					else if(p1.t == 2 && p1.relleno == false)
+					{
+						g2.drawRect(p1.x, p1.y, p1.ancho, p1.largo);						
+					}
+					else if(p1.t == 2 && p1.relleno == true)
+					{
+						g2.fillRect(p1.x, p1.y, p1.ancho, p1.largo);
+					}
+					else if(p1.t == 3 && p1.relleno == false)
+					{
+						g2.drawArc(p1.x, p1.y, p1.ancho, p1.largo, 0, 360);
+					}
+					else if(p1.t == 3 && p1.relleno == true)
+					{
+						g2.fillArc(p1.x, p1.y, p1.ancho, p1.largo, 0, 360);
+					}
+					else if(p1.t == 5)
+					{
+						g2.drawLine(p1.x, p1.y, p1.ancho, p1.largo);
+						g2.drawLine(p1.x, p1.y, p1.ancho, p1.largo);
+					}					
 				}
 			}
 			
 			//DIBUJA FIGURAS EN TIEMPO REAL
-			if(figuritas.size() > 0)
-			{
-				for(int i = 0 ; i < figuritas.size() ; i++)
-				{
-					ColocarFigura f = figuritas.get(i);
-					
-					g2.setColor(f.seleccionColor);
-					g2.setStroke(new BasicStroke(3));
-					
-					if(f.t == 2 && f.relleno == false)
-					{
-						g2.drawRect(f.x, f.y, f.ancho, f.largo);						
-					}
-					else if(f.t == 2 && f.relleno == true)
-					{
-						g2.fillRect(f.x, f.y, f.ancho, f.largo);						
-					}
-					else if(f.t == 3 && f.relleno == false)
-					{
-						g2.drawArc(f.x, f.y, f.ancho, f.largo, 0, 360);
-					}
-					else if(f.t == 3 && f.relleno == true)
-					{
-						g2.fillArc(f.x, f.y, f.ancho, f.largo, 0, 360);
-					}
-					else if(f.t == 5)
-					{
-						g2.drawLine(f.x, f.y, f.ancho, f.largo);
-						g2.drawLine(f.x, f.y, f.ancho, f.largo);
-					}
-				}
-			}
+//			if(figuritas.size() > 0)
+//			{
+//				for(int i = 0 ; i < figuritas.size() ; i++)
+//				{
+//					ColocarFigura f = figuritas.get(i);
+//					
+//					g2.setColor(f.seleccionColor);
+//					g2.setStroke(new BasicStroke(3));
+//					
+//					if(f.t == 2 && f.relleno == false)
+//					{
+//						g2.drawRect(f.x, f.y, f.ancho, f.largo);						
+//					}
+//					else if(f.t == 2 && f.relleno == true)
+//					{
+//						g2.fillRect(f.x, f.y, f.ancho, f.largo);						
+//					}
+//					else if(f.t == 3 && f.relleno == false)
+//					{
+//						g2.drawArc(f.x, f.y, f.ancho, f.largo, 0, 360);
+//					}
+//					else if(f.t == 3 && f.relleno == true)
+//					{
+//						g2.fillArc(f.x, f.y, f.ancho, f.largo, 0, 360);
+//					}
+//					else if(f.t == 5)
+//					{
+//						g2.drawLine(f.x, f.y, f.ancho, f.largo);
+//						g2.drawLine(f.x, f.y, f.ancho, f.largo);
+//					}
+//				}
+//			}
 		}
 	}
 
 	//CLASE PARA CAMBIAR DE COLOR Y GROSOR
 	public class Puntero
 	{
-		int x, y, seleccionGrosor;
-		Color seleccionColor;
-		
-		public  Puntero(int x, int y, int seleccionGrosor, Color seleccionColor)
-		{
-			this.x = x;
-			this.y = y;
-			this.seleccionGrosor = seleccionGrosor;
-			this.seleccionColor = seleccionColor;
-		}
-	}
-	
-	//CLASE PARA CREAR FIGURAS
-	public class ColocarFigura 
-	{
-		int x, y, ancho, largo, seleccionGrosor, t;
+		int x, y, seleccionGrosor, ancho, largo, t;
 		Color seleccionColor;
 		boolean relleno;
 		
-		public  ColocarFigura(int x, int y, int ancho, int largo, int seleccionGrosor, Color seleccionColor, int t, boolean relleno)
+		public  Puntero(int x, int y,int ancho,  int largo,  int seleccionGrosor, Color seleccionColor, int t, boolean relleno)
 		{
 			this.x = x;
 			this.y = y;
@@ -740,5 +775,23 @@ public class paint implements MouseListener, MouseMotionListener{
 			this.relleno = relleno;
 		}
 	}
-	
-}
+//	
+//	//CLASE PARA CREAR FIGURAS
+//	public class ColocarFigura 
+//	{
+//		int x, y, ancho, largo, seleccionGrosor, t;
+//		Color seleccionColor;
+//		boolean relleno;
+//		
+//		public  ColocarFigura(int x, int y, int ancho, int largo, int seleccionGrosor, Color seleccionColor, int t, boolean relleno)
+//		{
+//			this.x = x;
+//			this.y = y;
+//			this.ancho = ancho;
+//			this.largo = largo;
+//			this.seleccionGrosor = seleccionGrosor;
+//			this.seleccionColor = seleccionColor;
+//			this.t = t;
+//			this.relleno = relleno;
+//		}
+	}
